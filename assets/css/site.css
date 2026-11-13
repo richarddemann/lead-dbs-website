@@ -53,10 +53,13 @@
   --label-case: none;
 }
 /* the dark theme: html[data-theme="dark"], set before the first paint by the script in head.html (the
-   reader's choice from the header's toggle, else the system's setting). The same family on a near-black
-   warm grey: the ink and the blue lightened, the coral a touch brighter; the black of the renders stays.
-   Pictures keep their own colours, so a white screenshot or figure is toned down a little and framed, and
-   the logos (dark marks on white) are drawn light.
+   reader's choice from the header's toggle, else the system's setting). The ground is the black of
+   the renders, so a render and a black band lie in the page without an edge; neutral greys carry the
+   hierarchy (ink, muted, one raised surface, hairlines from the ink), the blue is lightened and the coral
+   a touch brighter.
+   Pictures keep their own colours, so a white screenshot or figure is toned down a little and framed, the
+   logos (dark marks on white) are drawn light, and the download page's black announcement panel, which
+   would vanish into the black page, takes the raised surface.
    Without script <html> has no data-theme, and the same rules apply when the system asks for dark (the
    @media rule below). Both are printed from this one template string (this file is run as a Hugo template,
    head.html): %[1]s is the selector of the palette, %[2]s the one in front of the picture rules. Edit the
@@ -65,15 +68,16 @@
   color-scheme: dark;
   --docs-code-keyword: #f08ab4; --docs-code-string: #8bcca4; --docs-code-number: #8fbaff;
   --docs-bg: #0a0a0a; --docs-ink: #ededed; --docs-muted: #a1a1a1; --docs-nav-ink: #b5b5b5; --docs-surface: #171717;
-  --p-bg: #161819; --p-surface: #212426; --p-ink: #e6e8e9; --p-muted: #9ca2a6;
-  --p-accent: #ec7a70; --p-accent-ink: #161819; --p-action: #8fb5e3; --p-action-ink: #10202e;
+  --p-bg: #000000; --p-surface: #111111; --p-ink: #ededed; --p-muted: #a1a1a1;
+  --p-accent: #ec7a70; --p-accent-ink: #0a0a0a; --p-action: #8fb5e3; --p-action-ink: #0a1622;
   --p-accent-text: var(--p-accent);
-  --p-tint-1: #8e97d6; --p-tint-2: #d897a4; --p-tint-ink: #161819;
-  --p-inv-surface: #1b1e20;
+  --p-tint-1: #8e97d6; --p-tint-2: #d897a4; --p-tint-ink: #0a0a0a;
+  --p-inv-surface: #111111; --p-inv-ink: #ededed; --p-inv-muted: #a1a1a1;
 }
 %[2]s .prose img { filter: brightness(.86); }
 %[2]s :is(.funders img, .qcard__logo) { filter: grayscale(1) invert(1) brightness(1.4); mix-blend-mode: normal; opacity: .7; }
-%[2]s .atlas__thumb img { filter: brightness(.78); }` }}
+%[2]s .atlas__thumb img { filter: brightness(.78); }
+%[2]s .dl-next { background: var(--p-surface); }` }}
 {{ printf $dark `:root[data-theme="dark"]` `[data-theme="dark"]` }}
 /* :where() keeps the picture rules as specific as with script ([data-theme="dark"]: one attribute) */
 @media (prefers-color-scheme: dark) {

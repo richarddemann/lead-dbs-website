@@ -441,13 +441,27 @@ html:not(.dl-terms-ready) .dl-terms__close { display: none; }
   color: var(--ink); font-size: var(--t-small); font-weight: 500; text-decoration: none; transition: background-color var(--t-out) var(--ease); }
 .prose .jumps a:hover { background: color-mix(in oklab, var(--p-tint-1) 45%, var(--p-bg)); transition-duration: var(--t-in); }
 
-/* {{< chapter >}}: the heading large on the left, the lede (two-tone) on the right, level with its
-   foot; under them, with a render, the render across the page. A phone leaves the render out. */
+/* {{< chapter >}}: the heading large, and its two-tone lede as a statement a size under it (its bold
+   clause in ink, the rest muted). From 1024px the head takes the columns of the showcase below it: the
+   heading over the names, the lede over the stage, starting at the stage's left edge and standing on
+   the heading's last line, so head, names and picture read as one block. Below that the lede stands
+   under the heading. With a render, the render across the page under them. A phone sets the head its
+   own way (assets/css/phone-features.css) and leaves the render out. */
 .prose .chapter { margin: clamp(80px, 8vw, 128px) 0 var(--s-6); max-width: none; scroll-margin-top: calc(var(--nav) + var(--s-4)); }
 .prose .chapter__head { display: grid; gap: var(--s-3); }
 .prose .chapter__head h2 { margin: 0; font-size: var(--t-h2); font-weight: 600; line-height: 1.02; letter-spacing: -.035em; }
 .prose .chapter__head > p { margin: 0; max-width: var(--measure); font-size: var(--t-lead); line-height: 1.45; color: var(--muted); }
 .prose .chapter__head > p strong { font-weight: 500; color: var(--ink); }
+@media (min-width: 640px) {
+  .prose .chapter__head { gap: var(--s-4); }
+  .prose .chapter__head > p { max-width: 34ch; font-family: var(--font-display); font-size: var(--t-sub); font-weight: 500; line-height: calc(var(--t-sub) + var(--s-2)); letter-spacing: var(--display-tracking); text-wrap: balance; }
+}
+@media (min-width: 1024px) {
+  .prose .chapter__head { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: end; }
+  .prose .chapter__head h2 { grid-column: 1 / span 4; padding-right: var(--s-4); }
+  .prose .chapter__head h2:only-of-type:last-child { grid-column: 1 / -1; }
+  .prose .chapter__head > p { grid-column: 5 / span 8; }
+}
 .prose .chapter__fig { margin: var(--s-6) 0 0; max-width: none; }
 .prose .chapter__fig img { display: block; width: 100%; height: auto; aspect-ratio: 21 / 8; object-fit: cover; object-position: var(--focus, 50% 50%); border-radius: var(--r-lg); background: var(--render); }
 .prose .chapter + :is(.cap-show, .tool-cells) { margin-top: var(--s-6); }
