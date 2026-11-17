@@ -230,3 +230,21 @@ page composition on desktop as well: the task is readable before the illustratio
 On short landscape screens (640–1023px wide, at most 500px high), Home places its
 purpose and primary action beside the render. The image must not consume the first screen
 before the visitor can read the page's title. Portrait and tablet compositions are unchanged.
+
+## Phone motion and touch
+
+On a coarse pointer, links, buttons and disclosures acknowledge a press immediately
+at 72% opacity. Keep the hit box still, suppress the WebKit highlight on those
+controls and preserve native pinch zoom and keyboard focus indication. Use at least
+44px for standalone controls. Inline prose links follow the line of text.
+
+The menu enters over 200ms with the shared ease, 8px of vertical travel and opacity.
+The close control fades and lifts the sheet over 200ms with ease-out. Navigation releases it immediately. Native disclosures and content switches
+change size in one layout. Use transform or opacity for movement, and stop animation
+under reduced motion. Keep the scrolling phone header opaque and the home title
+visible from first paint. Gallery swipes belong to one-finger horizontal gestures
+on the image at normal zoom. Two fingers and vertical motion belong to Safari.
+
+Phone opening renders reach the edges. Inset scientific figures, catalogue thumbnails
+and the community photograph have square corners and retain their own aspect ratios.
+Archived essays omit the opening contents even when they meet the section and word thresholds.

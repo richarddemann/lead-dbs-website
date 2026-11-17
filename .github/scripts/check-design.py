@@ -171,6 +171,8 @@ def parse(path):
                 problems.append(f"{path}:{first}: unbalanced parentheses in a selector (it swallows the rules after it): {s[:80]!r}")
             if re.search(r"\n[ \t]*\n", seg.strip()) and not s.startswith("@"):
                 problems.append(f"{path}:{first}: a selector left without its rule: {seg.strip().splitlines()[0][:60]!r}")
+            if ":hover" in s and not s.startswith("@") and not any("(hover: hover)" in outer for _, outer in stack):
+                problems.append(f"{path}:{first}: hover styling needs a hover-capable pointer")
             stack.append(("at" if s.startswith("@") else "rule", s))
         elif s:
             # declarations stand in a style rule or in an @-rule that holds them directly (@font-face)
@@ -253,6 +255,11 @@ for path in CSS:
             if not NOT_COLOUR.match(prop):
                 bare = re.sub(r"var\([^)]*\)|url\([^)]*\)|[\"'][^\"']*[\"']", " ", v)
                 counts["colour"] += len(NAMED.findall(bare))
+        if prop in ("transition", "transition-property"):
+            # Split only at the property token. Commas inside easing functions are harmless.
+            layout = r"(?:all|(?:min-|max-)?(?:width|height)|(?:margin|padding|inset)(?:-[\w-]+)?|left|right|top|bottom|grid-template-(?:columns|rows))"
+            if re.search(rf"(?:^|,)\s*{layout}(?=[\s,]|$)", v):
+                rule(d, f"transition names a layout property or all ({sel})")
         if prop == "line-height" and re.fullmatch(r"[\d.]+(px|em|rem)?", v):
             counts["line-height"] += 1
         if prop == "letter-spacing" and re.match(r"-?[\d.]+(px|em)", v):

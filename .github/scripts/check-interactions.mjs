@@ -117,6 +117,13 @@ for (const how of ['the "/" key', 'the header\'s button']) {
     if (!(await until(page, () => document.querySelectorAll('#site-search .search__results a.search__hit:not(.search__hit--manual)').length > 0))) {
       fail(`"atlas" lists no results (status: ${await dialog.locator('.search__status').textContent()})`);
     }
+    const keptResults = await dialog.locator('.search__input').evaluate(async input => {
+      input.value = 'atla';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      await new Promise(requestAnimationFrame);
+      return input.closest('dialog').querySelector('.search__results a') !== null;
+    });
+    if (!keptResults) fail('refining a matching query collapses the search results for a frame');
     // the box is a search field: in Chromium the first Escape empties it (the browser's own behaviour),
     // and the next one closes the dialog
     await page.keyboard.press('Escape');
@@ -417,6 +424,15 @@ if (wk) {
     if (!(await until(page, () => document.querySelectorAll('#site-search .search__results a.search__hit').length > 0))) fail('"atlas" lists no results');
   }, { engine: wk });
   await journey('WebKit: narrow phone actions and root menu lock', { width: 320, height: 667, mobile: true }, async (page, fail) => {
+    await page.goto(url('about/citing_leaddbs/'));
+    const tab = page.locator('.cite-snip__tab').first();
+    const press = await tab.evaluate(el => ({
+      height: el.getBoundingClientRect().height,
+      highlight: getComputedStyle(el).webkitTapHighlightColor,
+      action: getComputedStyle(el).touchAction,
+    }));
+    if (press.height < 44 || press.highlight !== 'rgba(0, 0, 0, 0)' || press.action !== 'manipulation')
+      fail('citation tabs must provide a 44px touch target with native manipulation and a custom press state');
     for (const path of ['', DOWNLOAD, MANUAL, 'contact/', GALLERY]) {
       await page.goto(url(path), { waitUntil: 'load' });
       if (await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)) fail(`${path}: horizontal page overflow`);
