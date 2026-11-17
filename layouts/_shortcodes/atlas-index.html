@@ -11,7 +11,7 @@
 {{- $noun := .Get "noun" | default "atlases" -}}
 <div class="atlas-index" id="atlas-index" data-atlas-index>
   {{- /* a filter only where the list is too long to scan */}}
-  {{ if ge $n 15 }}<div class="atlas-filter" hidden data-atlas-filter-box>
+  {{ if ge $n 15 }}<div class="atlas-filter" inert data-atlas-filter-box>
     <label class="sr-only" for="atlas-filter">Filter the {{ $n }} {{ $noun }}</label>
     <input id="atlas-filter" type="search" placeholder="{{ .Get "placeholder" | default "Filter by name, structure, disease or author" }}" autocomplete="off" data-atlas-filter>
     <p class="atlas-filter__count" aria-live="polite" data-atlas-count></p>

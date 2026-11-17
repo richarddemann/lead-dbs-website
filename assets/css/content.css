@@ -130,7 +130,8 @@
 .atlas-index { margin: var(--s-6) 0 var(--s-7); }
 .atlas-filter__none[hidden], [data-atlas-entry][hidden], .prose [data-atlas-group][hidden] { display: none; }
 .atlas-filter { display: grid; gap: var(--s-2); max-width: 30rem; margin-bottom: var(--s-4); }
-.atlas-filter[hidden] { display: none; }
+.atlas-filter[inert] { visibility: hidden; }
+html:not(.js) .atlas-filter[inert] { display: none; }
 .atlas-filter label { font-weight: 600; }
 .atlas-filter input { font: inherit; padding: 10px 12px; border: 1px solid var(--line-strong); border-radius: var(--r-sm); background: var(--bg); color: var(--ink); }
 .atlas-filter input:focus-visible { outline: 2px solid var(--action); outline-offset: 1px; }
@@ -553,6 +554,7 @@ html .prose .cells a { color: var(--ink); text-decoration-color: var(--line-stro
 
 @media (max-width: 639px) {
   .cm-hero__photo, .atlas-tile__media, .prose .atlas-hero img { border-radius: 0; }
+  .prose .atlas-hero > .img-zoom { width: 100%; }
   .prose p.atlas-hero { padding: 0; border: 0; border-radius: 0; background: none; }
   .prose .video-card__chapters, .prose .chapters__more > summary, .ws-archive .prose > details.more > summary { min-height: 44px; }
 }

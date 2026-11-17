@@ -18,7 +18,7 @@ document.querySelectorAll('[data-atlas-index]').forEach((box) => {
     const intro = list.previousElementSibling !== heading ? list.previousElementSibling : null;
     return { list, parts: [list, heading, intro].filter(Boolean) };
   });
-  box.querySelector('[data-atlas-filter-box]').hidden = false;
+  box.querySelector('[data-atlas-filter-box]').inert = false;
   const run = () => {
     const words = input.value.toLowerCase().split(/\s+/).filter(Boolean);
     let shown = 0;

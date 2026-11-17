@@ -13,7 +13,7 @@
 <div class="cite-snip{{ if .compact }} cite-snip--compact{{ end }}">
   {{- with .label }}<p class="cite-snip__label">{{ . }}</p>{{ end }}
   <div class="cite-snip__box">
-    <div class="cite-snip__bar" hidden>
+    <div class="cite-snip__bar" inert>
       <div class="cite-snip__tabs" role="group" aria-label="Citation format">
         <button type="button" class="cite-snip__tab" aria-pressed="true" data-show="ref">Reference</button>
         <button type="button" class="cite-snip__tab" aria-pressed="false" data-show="bib">BibTeX</button>

@@ -88,7 +88,7 @@ document.querySelectorAll('.paper-rows').forEach((list) => {
 document.querySelectorAll('.cite-snip').forEach((box) => {
   const bar = box.querySelector('.cite-snip__bar');
   if (!bar) return;
-  bar.hidden = false;
+  bar.inert = false;
   const tabs = [...box.querySelectorAll('.cite-snip__tab')];
   const texts = [...box.querySelectorAll('[data-fmt]')];
   tabs.forEach((tab) => tab.addEventListener('click', () => {
