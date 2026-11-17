@@ -56,6 +56,7 @@
 .search-dialog .search__hint > span { display: inline-flex; align-items: center; gap: var(--s-1); }
 @media (hover: none) { .search__hint, .search-dialog .search__hint { display: none; } }
 @media (max-width: 639px) {
+  .search-dialog__close { height: 44px; }
   .search-dialog__close svg { display: block; }
   .search-dialog__close kbd, .search-dialog .search__hint { display: none; }
   .search-dialog .search__hit { grid-template-columns: minmax(0, 1fr); }

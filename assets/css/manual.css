@@ -262,7 +262,8 @@ html:not(.js) .manual-launch-tabs { display: none; }
 .manual-drawer__body .manual-nav__row { min-height: 2.75rem; }
 .manual-drawer__body .manual-nav__row > a { display: flex; align-items: center; min-height: 2.75rem; padding-block: var(--s-2); }
 .manual-drawer__body .manual-nav__toggle { width: 2.75rem; height: 2.75rem; margin-right: 0; }
-.manual-drawer__body .manual-nav__group h2 { display: flex; align-items: center; min-height: 2.75rem; margin: 0; }
+.manual-drawer__body .manual-nav__group h2 { display: flex; align-items: center; min-height: 2.75rem; padding-block: 0; margin: 0; }
+.manual-drawer__body .manual-nav__group h2 a { flex: 1; display: flex; align-items: center; min-height: 2.75rem; }
 .manual-drawer__footer { display: grid; gap: var(--s-2); border-top: 1px solid var(--line); padding: var(--s-3) var(--s-4) max(var(--s-4), env(safe-area-inset-bottom)); font-size: var(--t-small); }
 .manual-drawer__footer a { display: flex; justify-content: space-between; align-items: center; min-height: 2.75rem; }
 .manual-drawer-open { overflow: hidden; }

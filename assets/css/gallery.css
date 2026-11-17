@@ -88,6 +88,7 @@ html:not(.js) .g-item__info { display: block; padding: var(--s-2) 0 var(--s-3); 
 
 @media (max-width: 639px) {
   .g-pills button { transition: none; }
+  .g-info__cite summary, .g-info__licence a { display: inline-flex; align-items: center; min-height: 44px; }
   .g-box::backdrop { -webkit-backdrop-filter: none; backdrop-filter: none; }
   .g-box__close, .g-box__nav { width: 44px; height: 44px; }
 }
