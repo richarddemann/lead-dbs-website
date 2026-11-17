@@ -81,6 +81,17 @@ await journey('phone menu: the button opens the sheet, Escape and the button clo
   await page.goto(url(''), { waitUntil: 'load' });
   const toggle = page.locator('.nav__toggle');
   if (!(await toggle.isVisible())) { fail('no menu button on a phone'); return; }
+  const bounds = await toggle.boundingBox();
+  const touch = await page.context().newCDPSession(page);
+  await touch.send('Input.dispatchTouchEvent', {
+    type: 'touchStart', touchPoints: [{ x: bounds.x + bounds.width / 2, y: bounds.y + bounds.height / 2 }],
+  });
+  if (await toggle.evaluate(el => Number(getComputedStyle(el).opacity)) >= 1)
+    fail('the held menu button has no pressed feedback');
+  await touch.send('Input.dispatchTouchEvent', { type: 'touchCancel', touchPoints: [] });
+  if (await toggle.evaluate(el => el.hasAttribute('data-touch-pressed') || el.getAttribute('aria-expanded') === 'true'))
+    fail('cancelling a touch must release the button without opening the menu');
+  await touch.detach();
   await toggle.click();
   if (!(await until(page, () => document.querySelector('.nav').classList.contains('is-open')))) fail('the menu button does not open the sheet');
   if (await toggle.getAttribute('aria-expanded') !== 'true') fail('the open sheet\'s button does not say aria-expanded="true"');

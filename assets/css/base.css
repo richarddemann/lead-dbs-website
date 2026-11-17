@@ -276,4 +276,4 @@ p:not(:where(.prose *)) a:not([class]) { --rest: color-mix(in oklab, currentColo
 
 /* Native scrolling and pinch zoom remain available while pressing a control. */
 :is(a[href], button, summary) { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
-:is(a[href], button:enabled, summary):active { opacity: .72; transition-duration: 0s; }
+:is(a[href], button:enabled, summary):is(:active, [data-touch-pressed]) { opacity: .72; transition-duration: 0s; }

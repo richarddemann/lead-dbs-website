@@ -1,5 +1,23 @@
 import { leadFragment } from '../lib/fragment.js';
 
+// A scrollable surface may defer :active until it knows whether the touch is a tap.
+(() => {
+  let pressed;
+  const clear = () => {
+    pressed?.removeAttribute('data-touch-pressed');
+    pressed = null;
+  };
+  document.addEventListener('pointerdown', (event) => {
+    clear();
+    if (event.pointerType !== 'touch' || !event.isPrimary) return;
+    pressed = event.target.closest('a[href], button:enabled, summary');
+    pressed?.setAttribute('data-touch-pressed', '');
+  }, { passive: true, capture: true });
+  document.addEventListener('pointerup', clear, true);
+  document.addEventListener('pointercancel', clear, true);
+  addEventListener('pagehide', clear);
+})();
+
 // ------------------------------------------------------------------ table of contents
 // The sticky contents on a desktop mark the section being read (the last heading above the top third).
 (() => {

@@ -234,7 +234,7 @@ before the visitor can read the page's title. Portrait and tablet compositions a
 ## Phone motion and touch
 
 On a coarse pointer, links, buttons and disclosures acknowledge a press immediately
-at 72% opacity. Keep the hit box still, suppress the WebKit highlight on those
+at 72% opacity. Apply it on touch pointer-down and clear it on release or pointer cancellation when scrolling begins. Keep the hit box still, suppress the WebKit highlight on those
 controls and preserve native pinch zoom and keyboard focus indication. Use at least
 44px for standalone controls. Inline prose links follow the line of text.
 
