@@ -44,7 +44,7 @@
   .prose .chapter { margin: 0; padding-top: var(--s-9); }
   .prose .chapter__head { grid-template-columns: auto minmax(0, 1fr); column-gap: calc(var(--s-1) * 2.5); row-gap: var(--s-4); }
   .prose .chapter__n { color: var(--muted); font-size: var(--t-small); font-weight: 500; line-height: calc(var(--s-4) + var(--s-1)); font-variant-numeric: tabular-nums; }
-  .prose .chapter__head h2 { font-family: var(--font-text); font-size: var(--t-small); font-weight: 500; line-height: calc(var(--s-4) + var(--s-1)); letter-spacing: normal; text-wrap: wrap; }
+  .prose .chapter__head h2 { font-family: var(--font-text); font-size: var(--t-small); font-weight: 500; line-height: calc(var(--s-4) + var(--s-1)); letter-spacing: normal; text-wrap: balance; }
   .prose .chapter__head > p { grid-column: 1 / -1; max-width: none; font-family: var(--font-display); font-size: var(--t-h2); font-weight: 500;
     line-height: calc(var(--t-h2) + var(--s-1)); letter-spacing: var(--display-tracking-xl); }
   .prose .chapter + :is(.cap-show, .tool-cells) { margin-top: calc(var(--s-6) + var(--s-2)); }
@@ -96,10 +96,10 @@
 /* one that is not chosen folds its sentence, links and picture away (with script only); the clip is the
    box that folds, so the body keeps its padding */
 @media (scripting: enabled) {
-  .prose .cap-show:not(.cap-show--one) .capability__panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 320ms var(--ease-out); }
-  .prose .cap-show:not(.cap-show--one) .capability__clip { min-height: 0; overflow: hidden; visibility: hidden; transition: visibility 0s 320ms; }
+  .prose .cap-show:not(.cap-show--one) .capability__panel { display: grid; grid-template-rows: 0fr; }
+  .prose .cap-show:not(.cap-show--one) .capability__clip { min-height: 0; overflow: hidden; visibility: hidden; }
   .prose .cap-show:not(.cap-show--one) .capability.is-active .capability__panel { grid-template-rows: 1fr; }
-  .prose .cap-show:not(.cap-show--one) .capability.is-active .capability__clip { visibility: visible; transition-delay: 0s; }
+  .prose .cap-show:not(.cap-show--one) .capability.is-active .capability__clip { visibility: visible; }
 }
 .prose .cap-show--one .capability h3 { padding: 9px 0; }
 @media (min-width: 1024px) {

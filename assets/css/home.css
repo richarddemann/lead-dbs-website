@@ -114,7 +114,7 @@ html body.kind-home .nav:not(.is-scrolled, .is-open) { border-bottom-color: tran
 /* the entrance (assets/js/main/home.js): until the script starts it, the title is hidden and the clip sits a
    little larger (the lead and the buttons stand from the first paint); if the script is late
    (html.hero-late), the title fades in here. .is-still: no entrance. */
-@media (prefers-reduced-motion: no-preference) {
+@media (min-width: 640px) and (prefers-reduced-motion: no-preference) {
   html.hero-wait:not(.hero-late) .home-hero:not(.is-entering, .is-entered) h1 { opacity: 0; }
   html.hero-wait:not(.hero-late) .home-hero:not(.is-entering, .is-entered) .hero__bg { scale: 1.05; }
   html.hero-late .home-hero:not(.is-entering, .is-entered) h1 { transition: opacity 300ms var(--ease); }
@@ -349,6 +349,7 @@ html body.kind-home .nav:not(.is-scrolled, .is-open) { border-bottom-color: tran
   .drift::-webkit-scrollbar { display: none; }
   .drift:focus-visible { outline-offset: -2px; }
   .drift__row, .drift__track, .drift__set { display: contents; }
+  .drift__track { animation: none; }
   .drift__set[aria-hidden] { display: none; }
   .drift__item { flex: none; width: 284px; scroll-snap-align: start; }
 @media (hover: hover) { .drift:has(.drift__item:hover) .drift__item:not(:hover) { opacity: 1; } }

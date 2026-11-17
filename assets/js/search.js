@@ -85,21 +85,27 @@
     fallback.hidden = true;
     fallback.innerHTML = `<a class="search__hit search__hit--manual" href="${MANUAL}">Browse the Lead-DBS manual →</a>`;
     list.after(fallback);
-    let timer = 0, generation = 0;
+    let generation = 0;
     const start = box.querySelector('.search__start');
     // on /search/ the cards to start from show only while there is no query
     const doors = box.closest('.search-page')?.querySelectorAll('[data-search-doors]') || [];
     const run = async () => {
       const request = ++generation;
       const q = input.value.trim();
-      list.replaceChildren();
       fallback.hidden = true;
       if (start) start.hidden = !!q;
       doors.forEach((d) => { d.hidden = !!q; });
       if (!q) { list.replaceChildren(); status.textContent = ''; return; }
       status.textContent = 'Searching…';
       let rows;
-      try { rows = await load(); } catch { if (request === generation) { status.textContent = 'Search is unavailable. Try again or browse the manual.'; fallback.hidden = false; } return; }
+      try { rows = await load(); } catch {
+        if (request === generation) {
+          list.replaceChildren();
+          status.textContent = 'Search is unavailable. Try again or browse the manual.';
+          fallback.hidden = false;
+        }
+        return;
+      }
       if (request !== generation || input.value.trim() !== q) return;
       const all = rank(rows, q);
       const hits = all.slice(0, SHOWN);
@@ -113,16 +119,9 @@
       fallback.hidden = false;
       return true;
     };
-    input.addEventListener('input', () => {
-      ++generation;
-      list.replaceChildren();
-      fallback.hidden = true;
-      clearTimeout(timer);
-      timer = setTimeout(run, 120);
-    });
+    input.addEventListener('input', run);
     box.querySelector('form').addEventListener('submit', async (e) => {
       e.preventDefault();
-      clearTimeout(timer);
       if (await run()) list.querySelector('a')?.click();
     });
     // arrow keys: from the box to the results and between them

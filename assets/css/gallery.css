@@ -85,3 +85,9 @@ html:not(.js) .g-item__info { display: block; padding: var(--s-2) 0 var(--s-3); 
   .g-pills { flex-wrap: nowrap; overflow-x: auto; max-width: 100%; scroll-snap-type: x proximity; padding-bottom: var(--s-2); mask-image: linear-gradient(to right, var(--ink) calc(100% - 1rem), transparent); }
   .g-pills button { flex: none; min-height: 2.75rem; scroll-snap-align: start; }
 }
+
+@media (max-width: 639px) {
+  .g-pills button { transition: none; }
+  .g-box::backdrop { -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .g-box__close, .g-box__nav { width: 44px; height: 44px; }
+}

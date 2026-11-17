@@ -222,7 +222,7 @@ import { showPlayState } from '../lib/play-state.js';
     hero.classList.remove('is-entering');
     hero.classList.add('is-entered');
   };
-  if (!h1 || !root.classList.contains('hero-wait') || matchMedia('(prefers-reduced-motion: reduce)').matches
+  if (!h1 || !root.classList.contains('hero-wait') || matchMedia('(max-width: 639px)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches
     || hero.getBoundingClientRect().bottom < 0) { shown(true); return; }
   if (root.classList.contains('hero-late')) { setTimeout(shown, 400); return; }
 

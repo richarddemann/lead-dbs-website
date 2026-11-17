@@ -19,7 +19,10 @@
   // (search, the theme button, Download) and the menu button, in the order of the page
   const inSheet = () => [...nav.querySelectorAll('#site-menu a[href], #site-menu button, .nav__actions a[href], .nav__actions button, .nav__toggle')]
     .filter((el) => !el.disabled && !el.closest('[inert]') && el.getClientRects().length && getComputedStyle(el).visibility !== 'hidden');
+  let dismissal;
   const setOpen = (open, focus = false) => {
+    dismissal?.cancel();
+    dismissal = null;
     nav.classList.toggle('is-open', open);
     document.body.classList.toggle('nav-locked', open);
     toggle.setAttribute('aria-expanded', String(open));
@@ -27,7 +30,19 @@
     toggle.innerHTML = open ? icon.close : icon.open;
     if (open && focus) { menu.tabIndex = -1; menu.focus({ preventScroll: true }); }
   };
-  toggle.addEventListener('click', () => setOpen(!nav.classList.contains('is-open'), true));
+  const dismiss = () => {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { setOpen(false); return; }
+    if (dismissal) return;
+    dismissal = menu.animate([{ opacity: 1, transform: 'translateY(0)' }, { opacity: 0, transform: 'translateY(-8px)' }],
+      { duration: 200, easing: 'ease-out' });
+    dismissal.onfinish = () => setOpen(false);
+  };
+  toggle.addEventListener('click', () => {
+    if (dismissal) setOpen(true, true);
+    else if (nav.classList.contains('is-open')) dismiss();
+    else setOpen(true, true);
+  });
+  addEventListener('pagehide', () => { if (nav.classList.contains('is-open')) setOpen(false); });
   wide.addEventListener('change', (e) => {
     hovered = null; clearTimeout(timer);
     if (e.matches) setOpen(false);
@@ -43,7 +58,7 @@
   const close = (item, updateBand = true) => { item.classList.remove('is-expanded'); item.sync(updateBand); };
   // One frame holds the desktop panels, as tall as the open one (a closed panel is display: none and
   // measures 0). Commit all disclosure states before measuring it, so switching groups never briefly
-  // closes the band; its height then eases to the new panel's (assets/css/header.css).
+  // closes the band. Size it once to the newly opened panel.
   const band = document.createElement('div');
   band.className = 'nav__band';
   band.setAttribute('aria-hidden', 'true');
@@ -173,7 +188,7 @@
     // a modal dialog opened over the sheet (search, a video) holds the keys until it closes
     if (document.querySelector('dialog[open]')) return;
     if (e.key === 'Escape') {
-      if (nav.classList.contains('is-open')) { setOpen(false); toggle.focus(); }
+      if (nav.classList.contains('is-open')) { dismiss(); toggle.focus({ preventScroll: true }); }
       return;
     }
     if (e.key !== 'Tab' || !nav.classList.contains('is-open')) return;
@@ -197,6 +212,7 @@
 (() => {
   const nav = document.querySelector('.nav');
   if (!nav) return;
+  const phone = matchMedia('(max-width: 639px)');
   const grounds = [...document.querySelectorAll('[data-nav-dark]')];
   let queued = false;
   const update = () => {
@@ -213,7 +229,7 @@
     }, 0);
     const coverage = Math.min(1, overlap / Math.max(1, box.height));
     const darkness = coverage * coverage * (3 - 2 * coverage);
-    nav.style.setProperty('--nav-darkness', darkness.toFixed(3));
+    if (!phone.matches) nav.style.setProperty('--nav-darkness', darkness.toFixed(3));
     // A small dead zone prevents theme chatter when the scroll rests at the midpoint.
     if (darkness > .53) nav.classList.add('is-dark');
     else if (darkness < .47) nav.classList.remove('is-dark');

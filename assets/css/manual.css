@@ -314,7 +314,6 @@ html:not(.js) .manual-launch-tabs { display: none; }
 }
 @media (max-width: 359px) {
   .manual-code__head [data-copy-label] { display: none; }
-  .manual-code__tools .manual-code__copy { min-width: 2rem; }
 }
 
 .manual-start__resources { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); margin-block: var(--s-5) var(--s-6); }
@@ -338,3 +337,8 @@ html:not(.js) .manual-launch-tabs { display: none; }
 }
 
 @media (max-width: 767px) { .manual-prose :is(h2, h3, h4) { scroll-margin-top: calc(var(--nav) + 2.75rem + var(--s-4)); } }
+
+@media (max-width: 639px) {
+  .manual-launch-tabs button { min-height: 44px; }
+  .manual-code__copy, .manual-code__wrap { min-width: 44px; }
+}

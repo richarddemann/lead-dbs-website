@@ -51,7 +51,7 @@
 
 /* a step: a small picture of it on a pale stage, then its number and title and a sentence */
 .dl-step { display: flex; flex-direction: column; }
-.dl-step :is(h2, h3) { display: flex; gap: var(--s-3); margin: var(--s-5) var(--s-5) var(--s-2); font-size: var(--t-lead); font-weight: 600; line-height: 1.3; letter-spacing: -0.015em; hyphens: manual; text-wrap: wrap; }
+.dl-step :is(h2, h3) { display: flex; gap: var(--s-3); margin: var(--s-5) var(--s-5) var(--s-2); font-size: var(--t-lead); font-weight: 600; line-height: 1.3; letter-spacing: -0.015em; hyphens: manual; text-wrap: balance; }
 .dl-step__n { color: var(--muted); font-weight: 400; font-variant-numeric: tabular-nums; }
 .dl-step > p { flex: 1; margin: 0 var(--s-5) var(--s-5); color: var(--muted); font-size: var(--t-small); line-height: 1.55; text-wrap: pretty; }
 .dl-step code { padding: 1px 5px; border-radius: var(--r-xs); background: var(--surface); color: var(--ink); font: 0.93em var(--font-mono); }
@@ -178,7 +178,7 @@ html:not(.dl-terms-ready) .dl-terms__close { display: none; }
 .fs-fixes li + li { border-top: 1px solid var(--line); }
 .fs-fixes code { font: var(--t-small)/1.4 var(--font-mono); overflow-wrap: anywhere; }
 .co-setup code { overflow-wrap: normal; }
-.fs-copy { height: 34px; padding: 0 14px; border: 1px solid var(--line-strong); border-radius: var(--r-pill); background: var(--bg); font-size: var(--t-label); font-weight: 500; cursor: pointer;
+.fs-copy { height: 34px; padding: 0 14px; border: 1px solid var(--line-strong); border-radius: var(--r-pill); background: var(--bg); color: var(--ink); font-size: var(--t-label); font-weight: 500; cursor: pointer;
   transition: background-color var(--t-out) var(--ease); }
 @media (hover: hover) { .fs-copy:hover { background: var(--surface); } }
 @media (max-width: 1023px) {
@@ -256,3 +256,5 @@ html:not(.dl-terms-ready) .dl-terms__close { display: none; }
 }
 
 @media (max-width: 639px) { .page-head:not(.page-head--render) + .dl-sec { padding-top: var(--s-6); } .fs .dl-step h2 { margin-top: 0; } }
+
+@media (max-width: 639px) { .fs-copy, .dl-rel__links a { min-height: 44px; } }

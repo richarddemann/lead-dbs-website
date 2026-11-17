@@ -11,6 +11,7 @@ import { leadFragment } from '../lib/fragment.js';
   let current = null, queued = false;
   const update = () => {
     queued = false;
+    if (!toc.getClientRects().length) return;
     const line = window.innerHeight / 3;
     let best = heads[0];
     for (const h of heads) { if (h.getBoundingClientRect().top <= line) best = h; else break; }

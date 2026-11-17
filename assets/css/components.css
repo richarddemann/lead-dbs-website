@@ -159,3 +159,7 @@ html .video-embed--poster .video-embed__start { background: linear-gradient(to t
   .v-box--chapters .v-box__chapters-h { padding-right: 56px; min-height: 40px; display: flex; align-items: center; }
   .v-box--chapters .v-box__chapters { padding-top: var(--s-3); }
 }
+
+@media (max-width: 639px) {
+  .cite-snip__tab, .cite-snip__copy { min-height: 44px; }
+}

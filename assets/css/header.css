@@ -117,8 +117,8 @@ html:not(.js) .nav__link .chev { display: none; }
   .nav__band { position: absolute; top: 100%; left: 0; right: 0; z-index: 0; height: 0; pointer-events: none;
     display: none; background: var(--bg); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
     box-shadow: var(--shadow-3);
-    opacity: 0; transition: opacity 140ms ease, display 140ms allow-discrete, height 180ms var(--ease); }
-  .nav.band-open .nav__band { display: block; opacity: 1; transition: opacity 160ms ease, display 0s allow-discrete, height 180ms var(--ease); }
+    opacity: 0; transition: opacity 140ms ease, display 140ms allow-discrete; }
+  .nav.band-open .nav__band { display: block; opacity: 1; transition: opacity 160ms ease, display 0s allow-discrete; }
   @starting-style { .nav.band-open .nav__band { opacity: 0; } }
   html:not(.js) .nav__menu { background: var(--bg); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); box-shadow: var(--shadow-3); }
   /* while a band is open the header is solid, so the clear bar over the home page's hero and the band
@@ -274,3 +274,15 @@ html:not(.js) .nav__link .chev { display: none; }
 }
 
 #site-menu:focus { outline: none; }
+
+@media (max-width: 639px) {
+  html.nav-ready .nav,
+  html.nav-ready body .nav.is-scrolled:not(.is-open),
+  html.nav-ready body.kind-home .nav.is-scrolled:not(.is-open) {
+    -webkit-backdrop-filter: none; backdrop-filter: none; transition: none;
+  }
+  html.nav-ready body .nav.is-scrolled:not(.is-open),
+  html.nav-ready body.kind-home .nav.is-scrolled:not(.is-open) { background-color: var(--p-bg); }
+  html.nav-ready body .nav.is-dark.is-scrolled:not(.is-open),
+  html.nav-ready body.kind-home .nav.is-dark.is-scrolled:not(.is-open) { background-color: var(--render); }
+}

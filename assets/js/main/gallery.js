@@ -29,6 +29,20 @@
   items.forEach((it) => it.querySelector('.g-item__img').addEventListener('click', (e) => { e.preventDefault(); open(it); }));
   box.querySelector('.g-box__nav--prev').addEventListener('click', () => step(-1));
   box.querySelector('.g-box__nav--next').addEventListener('click', () => step(1));
+  // Observe a single finger on the image. Safari keeps its native pan and pinch gestures.
+  let start;
+  img.addEventListener('touchstart', (e) => {
+    start = e.touches.length === 1 && window.visualViewport?.scale === 1 ? e.touches[0] : null;
+  }, { passive: true });
+  box.addEventListener('touchstart', (e) => { if (e.touches.length > 1) start = null; }, { passive: true });
+  img.addEventListener('touchcancel', () => { start = null; });
+  img.addEventListener('touchend', (e) => {
+    if (!start) return;
+    const dx = e.changedTouches[0].clientX - start.clientX;
+    const dy = e.changedTouches[0].clientY - start.clientY;
+    start = null;
+    if (Math.abs(dx) > 48 && Math.abs(dx) > 2 * Math.abs(dy)) step(dx < 0 ? 1 : -1);
+  }, { passive: true });
   box.addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft') step(-1); if (e.key === 'ArrowRight') step(1); });
   box.addEventListener('click', (e) => { if (e.target === box) box.close(); });
   const hash = () => {
