@@ -550,3 +550,9 @@ html .prose .cells a { color: var(--ink); text-decoration-color: var(--line-stro
 
 .atlas-index { margin-bottom: var(--s-4); }
 .prose .atlas-filter__count:empty { min-height: 0; }
+
+@media (max-width: 639px) {
+  .cm-hero__photo, .atlas-tile__media, .prose .atlas-hero img { border-radius: 0; }
+  .prose p.atlas-hero { padding: 0; border: 0; border-radius: 0; background: none; }
+  .prose .video-card__chapters, .prose .chapters__more > summary, .ws-archive .prose > details.more > summary { min-height: 44px; }
+}

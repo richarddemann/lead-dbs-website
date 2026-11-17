@@ -1,6 +1,7 @@
 ---
 {
   "title": "Command line options",
+  "displayTitle": "Command\u00a0line options",
   "linkTitle": "Command line options",
   "layout": "manual",
   "manual_group": "appendix",

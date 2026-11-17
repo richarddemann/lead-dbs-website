@@ -1,3 +1,2 @@
-{{- /* Whether a page shows "On this page": three or more ## sections (site.Params.tocMinHeadings), counted
-       by toc-sections.html, which the list itself uses too. */ -}}
-{{- return (and (ge (len (partial "toc-sections.html" .Fragments.Headings)) 4) (ge .WordCount 600)) -}}
+{{- /* Archived essays retain their original narrative flow. */ -}}
+{{- return (and (not .Params.archived) (ge .WordCount 600) (ge (len (partial "toc-sections.html" .Fragments.Headings)) site.Params.tocMinHeadings)) -}}

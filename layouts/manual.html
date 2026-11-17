@@ -33,7 +33,7 @@
       {{ with .Parent }}{{ if and (ne . $groupPage) (ne . (site.GetPage "/manual")) (eq .Section "manual") }}{{ partial "manual-icon.html" "chevron" }}<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}{{ end }}
     </nav>{{ end }}
     <header class="manual-head">
-      <h1>{{ .Title }}</h1>
+      <h1>{{ .Params.displayTitle | default .Title }}</h1>
       {{ with .Params.manual_lead }}<p>{{ . }}</p>{{ end }}
       {{ if not (or $home $isGroupPage) }}<div class="manual-actions"><button class="manual-copy" data-copy-url hidden aria-label="Copy page link">{{ partial "manual-icon.html" "link" }}<span data-copy-label>Copy link</span></button><a href="https://github.com/netstim/lead-dbs-website/edit/main/content/{{ .File.Path }}">{{ partial "manual-icon.html" "edit" }}Edit on GitHub</a></div>{{ end }}
     </header>

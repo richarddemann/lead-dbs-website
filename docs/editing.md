@@ -39,7 +39,7 @@ visitor presses play. The build stops if an id is not a plain video id.
 
 ## Long pages: the table of contents
 
-A `doc` page with three or more `##` sections gets "On this page" by itself:
+An unarchived `doc` page with at least 600 words and four or more `##` sections gets "On this page" by itself:
 at the top of the text on a phone and a tablet, and in the right sidebar on a desktop, where it stays in view
 while the text scrolls and marks the section being read; the threshold is `tocMinHeadings` in `hugo.toml`. It lists the `##` sections, so give long
 pages real headings in order: the page's title is its only `h1` (a `#` heading in the Markdown is

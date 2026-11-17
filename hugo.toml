@@ -46,7 +46,7 @@ enableGitInfo = true
   # The source code, linked from the header of every page.
   github = "https://github.com/netstim/leaddbs"
   # Doc pages show "On this page" from this many ## sections.
-  tocMinHeadings = 3
+  tocMinHeadings = 4
 
 [permalinks.page]
   # News posts lived at the site root in WordPress (/lead-dbs-3-0-out-now/).

@@ -59,7 +59,7 @@ stops the build on `sidebar:`, `related:` and `toc:`, and on an unknown type).
 | `hub` | a menu group's page (Docs and help, Atlases and data, About) | full | none; its body is the section's list |
 | own template | Home, Download, First steps, Contribute, Events, Gallery, Community, Usage, News | full | none |
 
-The right rail holds only **"On this page"**, when the page has three or more `##` sections
+The right rail holds only **"On this page"**, when an unarchived page has at least 600 words and four or more `##` sections
 (`site.Params.tocMinHeadings`), sticky while the page is read; a shorter page has no rail. Below 1024px it
 folds under the title. `check-site.py` fails on an empty sidebar.
 
