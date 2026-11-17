@@ -427,8 +427,9 @@ if (wk) {
     const pause = await page.locator('.hero__pause').boundingBox();
     if (!pause || pause.width < 44 || pause.height < 44) fail('hero pause target below 44px');
     await page.locator('.nav__toggle').click();
-    const locked = await page.evaluate(() => getComputedStyle(document.documentElement).overflowY === 'hidden' && getComputedStyle(document.querySelector('#site-menu')).overscrollBehaviorY === 'contain');
-    if (!locked) fail('root scroller or sheet overscroll is unlocked');
+    const lockState = () => ({ open: document.querySelector('.nav').classList.contains('is-open'), root: getComputedStyle(document.documentElement).overflowY, sheet: getComputedStyle(document.querySelector('#site-menu')).overscrollBehaviorY });
+    const locked = await until(page, () => { const s = getComputedStyle(document.documentElement).overflowY === 'hidden' && getComputedStyle(document.querySelector('#site-menu')).overscrollBehaviorY === 'contain'; return s; });
+    if (!locked) fail(`root scroller or sheet overscroll is unlocked: ${JSON.stringify(await page.evaluate(lockState))}`);
     await page.keyboard.press('Escape');
     if (await page.evaluate(() => getComputedStyle(document.documentElement).overflowY === 'hidden')) fail('root remains locked after Escape');
   }, { engine: wk });
