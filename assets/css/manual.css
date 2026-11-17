@@ -183,6 +183,20 @@
 .manual-section-pages { margin-top: var(--s-7); }
 .manual-section-pages h2 { margin-bottom: var(--s-4); font-size: var(--t-card); font-weight: 600; }
 
+/* ---------------------------------------------------------------- references
+   The lists under a "References" or "Publications" heading (and their quote-wrapped form from the
+   GitBook import) are a bibliography, not steps: small muted type, plain numbers in the margin, a little
+   air between entries, the paper's link breaking anywhere rather than running off the edge. */
+.manual-prose :is(h2#references, h2#publications) ~ :is(ol, blockquote) { font-size: var(--t-small); line-height: var(--lh-lead); color: var(--muted); }
+.manual-prose :is(h2#references, h2#publications) ~ blockquote { padding: 0; border: 0; }
+.manual-prose :is(h2#references, h2#publications) ~ :is(ol, blockquote > ol) { padding-left: 1.5em; list-style: decimal; }
+.manual-prose :is(h2#references, h2#publications) ~ ol > li, .manual-prose :is(h2#references, h2#publications) ~ blockquote > ol > li { position: static; margin: 0 0 var(--s-3); padding-left: var(--s-1); }
+.manual-prose :is(h2#references, h2#publications) ~ ol > li::before, .manual-prose :is(h2#references, h2#publications) ~ ol > li::after { content: none; }
+.manual-prose :is(h2#references, h2#publications) ~ :is(ol, blockquote) li > p { margin: 0; }
+.manual-prose :is(h2#references, h2#publications) ~ :is(ol, blockquote) li::marker { color: var(--muted); font-variant-numeric: tabular-nums; }
+.manual-prose :is(h2#references, h2#publications) ~ :is(ol, blockquote) a { overflow-wrap: anywhere; }
+.manual-prose :is(h2#references, h2#publications) ~ blockquote > p { font-size: var(--t-small); color: var(--muted); }
+
 /* ---------------------------------------------------------------- outline */
 .manual-outline { position: sticky; top: var(--docs-top); max-height: calc(100dvh - var(--docs-top)); overflow: auto; scrollbar-width: thin; padding-top: var(--s-6); font-size: var(--t-label); }
 .manual-outline .toc { position: static; max-height: none; padding: 0; border: 0; }

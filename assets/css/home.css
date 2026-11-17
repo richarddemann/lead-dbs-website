@@ -291,10 +291,10 @@ html body.kind-home .nav:not(.is-scrolled, .is-open) { border-bottom-color: tran
   .data-band__text p { display: block; margin: 0; color: var(--muted); font: 400 var(--t-small)/1.43 var(--font-text); }
   .data-band__counts { display: none; }
 }
-/* The voices: the render on the black band, the heading over it, and under it two rows of key phrases
-   drifting slowly across the whole width in opposite directions (layouts/home.html). Each row's track
-   holds its phrases twice and moves by half its width, so it loops without a seam; the edges fade.
-   Hover holds both rows; with reduced motion they stand and scroll sideways. */
+/* The voices: the render on the black band, the heading over it, and under it one row of quote cards
+   drifting slowly across the whole width (layouts/home.html). The track holds its cards twice and moves
+   by half its width, so it loops without a seam; the edges fade. Hover or the pause button holds it; with
+   reduced motion it stands and scrolls sideways. */
 .home > .render-band { position: relative; isolation: isolate; overflow: hidden; padding-block: var(--rhythm); background: var(--render); color: var(--on-render);
   --ink: #fff; --muted: rgb(255 255 255 / .65); --line: rgb(255 255 255 / .22); }
 .render-band__img { position: absolute; inset: 0 0 0 auto; width: 65%; margin: 0; z-index: -1; opacity: .85;
@@ -307,19 +307,22 @@ html body.kind-home .nav:not(.is-scrolled, .is-open) { border-bottom-color: tran
   -webkit-mask-image: linear-gradient(90deg, transparent, var(--render) 8%, var(--render) 92%, transparent); mask-image: linear-gradient(90deg, transparent, var(--render) 8%, var(--render) 92%, transparent); }
 .drift__row { overflow: hidden; }
 .drift__track { display: flex; width: max-content; animation: drift var(--dur, 150s) linear infinite; }
-.drift__row--rev .drift__track { animation-direction: reverse; }
-@media (hover: hover) { .drift:hover .drift__track, .drift.is-held .drift__track { animation-play-state: paused; } }
-.drift__set { display: flex; gap: clamp(40px, 4vw, 64px); padding-right: clamp(40px, 4vw, 64px); }
+.drift.is-held .drift__track { animation-play-state: paused; }
+@media (hover: hover) { .drift:hover .drift__track { animation-play-state: paused; } }
+.drift__set { display: flex; gap: var(--s-4); padding-right: var(--s-4); }
 @keyframes drift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-.drift__item { cursor: default; }
-.drift__item > figure { margin: 0; display: grid; gap: var(--s-2); }
-.drift__item { transition: opacity 300ms var(--ease); }
-.drift__item blockquote { margin: 0; white-space: nowrap; font: 500 var(--t-sub)/1.2 var(--font-display); letter-spacing: -.02em; color: var(--on-render); }
-.drift__q { color: rgb(255 255 255 / .35); }
-/* hovering one phrase holds the rows and lets it stand out */
-@media (hover: hover) { .drift:has(.drift__item:hover) .drift__item:not(:hover) { opacity: .3; } }
-.drift__item figcaption { white-space: nowrap; font-size: var(--t-label); color: rgb(255 255 255 / .55); }
-.drift__item figcaption b { font-weight: 500; color: rgb(255 255 255 / .85); }
+.drift__item { flex: none; display: flex; }
+/* a quote card: a faint hairline frame on the black, the sentence (its phrase in white), then the logo in
+   white over the name and the institution */
+.qchip { display: flex; flex-direction: column; justify-content: space-between; gap: var(--s-6); width: 360px; margin: 0; padding: var(--s-5);
+  border-radius: var(--r-md); background: color-mix(in srgb, var(--on-render) 4%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--on-render) 12%, transparent); }
+.qchip blockquote { margin: 0; }
+.qchip blockquote p { margin: 0; color: color-mix(in srgb, var(--on-render) 55%, transparent); font: 400 var(--t-doc)/var(--lh-lead) var(--font-text); text-wrap: pretty; }
+.qchip blockquote b { font-weight: 500; color: var(--on-render); }
+.qchip figcaption { display: grid; gap: var(--s-3); }
+.qchip__logo { display: block; width: auto; height: calc(22px * var(--h, 1)); max-width: 160px; object-fit: contain; object-position: left; filter: brightness(0) invert(1); opacity: .85; }
+.qchip__who { display: grid; font-size: var(--t-small); color: color-mix(in srgb, var(--on-render) 55%, transparent); }
+.qchip__who b { font-weight: 500; color: var(--on-render); }
 @media (prefers-reduced-motion: reduce) {
   .drift__track { animation: none; }
   .drift__row { overflow-x: auto; scrollbar-width: none; }
@@ -339,21 +342,17 @@ html body.kind-home .nav:not(.is-scrolled, .is-open) { border-bottom-color: tran
 .render-band__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--s-3) var(--s-6); }
 @media (max-width: 639px) {
   /* -------------------------------------------------------------- 4. one black stretch
-     the voices: the same two drifting rows as on a large screen (a banner, as on vercel.com), set
-     smaller; each phrase with its speaker on one line under it. The pause button stays beside the
-     heading (WCAG 2.2.2); the wide render is not shown. A hairline, then the figures from papers. */
+     the voices: the same drifting row of quote cards as on a large screen, the cards narrower; the pause
+     button beside All quotes (WCAG 2.2.2); the wide render is not shown. */
   .home > .render-band { padding-block: var(--s-8) 0; background: var(--render); }
   .render-band__img { display: none; }
   .render-band__wrap { position: static; }
   .render-band__actions { position: absolute; right: var(--gut); bottom: 0; }
   .render-band__actions .btn { display: none; }
-  .drift { gap: var(--s-5); margin-top: var(--s-6); }
-  .drift__set { gap: var(--s-7); padding-right: var(--s-7); }
-  .drift__item blockquote { font: 500 var(--t-card)/1.25 var(--font-display); letter-spacing: var(--display-tracking); }
-  .drift__item figcaption { font-size: var(--t-label); }
-  .drift__item figcaption > span:not(.drift__who):has(+ .drift__who) { display: none; }
-  .drift__who b { font-weight: 500; }
-  .render-band__more { display: flex; align-items: center; min-height: 44px; margin-top: var(--s-4); margin-bottom: 0; }
+  .drift { margin-top: var(--s-6); }
+  .qchip { width: 280px; gap: var(--s-5); padding: var(--s-5); }
+  .qchip blockquote p { font-size: var(--t-body); }
+  .render-band__more { display: flex; align-items: center; min-height: 44px; margin-top: var(--s-5); margin-bottom: 0; }
 }
 /* Made with Lead-DBS on black, right under the voices (layouts/home.html): the heading and its pill, under
    them two equal halves a wide gap apart: the endless grid of figures, its left edge under the heading's,

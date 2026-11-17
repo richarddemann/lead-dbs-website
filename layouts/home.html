@@ -190,28 +190,34 @@
         </div>
       </div>
     </div>
-    {{- /* two rows of key phrases drifting slowly in opposite directions (CSS only): each phrase is a few
-         words of its quote (phrase), the whole quote shows on hover (title) and to screen readers. Each row's phrases come twice, the copy hidden
-         from screen readers, so the row loops without a seam. Hover holds the rows; with reduced motion
-         they stand and scroll sideways. */}}
+    {{- /* one row of quote cards drifting slowly (CSS only), as the testimonials on vercel.com: each
+         researcher's sentence that holds their phrase (the phrase in white, the rest of the sentence
+         dimmed), their institution's logo in white, the name and the institution. The whole quote is read
+         to screen readers and shown on hover (title). The cards come twice, the copy hidden from screen
+         readers, so the row loops without a seam; hover or the pause button holds it; with reduced motion
+         it stands and scrolls sideways. The papers' quotes are on the wall of Publications. */}}
     <div class="drift" role="list" aria-label="Quotes about Lead-DBS">
-      {{ $qs := hugo.Data.quotes.quotes }}
-      {{ range $r, $row := slice (where $qs "row" 1) (where $qs "row" 2) }}
-      <div class="drift__row{{ if $r }} drift__row--rev{{ end }}" style="--dur: {{ cond (eq $r 0) "110s" "130s" }}">
+      {{ $qs := where hugo.Data.quotes.quotes "kind" "researcher" }}
+      <div class="drift__row" style="--dur: {{ mul (len $qs) 14 }}s">
         <div class="drift__track">
           {{ range $copy := slice 0 1 }}
           <div class="drift__set"{{ if $copy }} aria-hidden="true"{{ end }}>
-            {{ range $row }}{{ $paper := eq .kind "paper" }}{{ $roles := split .role ", " }}
-            <div class="drift__item"{{ if not $copy }} role="listitem"{{ end }}><figure title="“{{ .text }}”">
-              <blockquote><span aria-hidden="true"><span class="drift__q">“</span>{{ .phrase }}<span class="drift__q">”</span></span><span class="sr-only">{{ .text }}</span></blockquote>
-              <figcaption><span><b>{{ index (split .name ", ") 0 }}</b>{{ if $paper }} <em>{{ .role }}</em>{{ else }}, {{ index $roles (sub (len $roles) 1) }}{{ end }}</span>{{ if not $paper }}<span class="drift__who phone-only"><b>{{ index (split .name ", ") 0 }}</b> {{ index $roles (sub (len $roles) 1) }}</span>{{ end }}</figcaption>
+            {{ range $qs }}
+            {{- /* the sentence of the quote that holds its phrase */}}
+            {{ $sentence := .text }}
+            {{ $ph := .phrase }}
+            {{ range split (replace .text ". " ".|") "|" }}{{ if in . $ph }}{{ $sentence = . }}{{ end }}{{ end }}
+            {{ $parts := split $sentence $ph }}
+            {{ $roles := split .role ", " }}{{ $lh := .logoHeight | default 34 }}
+            <div class="drift__item"{{ if not $copy }} role="listitem"{{ end }}><figure class="qchip" title="“{{ .text }}”">
+              <blockquote><p aria-hidden="true">“{{ index $parts 0 }}<b>{{ $ph }}</b>{{ index $parts 1 }}”</p><span class="sr-only">{{ .text }}</span></blockquote>
+              <figcaption>{{ with .logo }}{{ $l := resources.Get . }}{{ if not $l }}{{ errorf "quotes: no logo %q" . }}{{ end }}<img class="qchip__logo" src="{{ $l.RelPermalink }}" alt="" style="--h: {{ div (float $lh) 34 }}" loading="lazy" decoding="async">{{ end }}<span class="qchip__who"><b>{{ index (split .name ", ") 0 }}</b><span>{{ index $roles (sub (len $roles) 1) }}</span></span></figcaption>
             </figure></div>
             {{ end }}
           </div>
           {{ end }}
         </div>
       </div>
-      {{ end }}
     </div>
     {{ with site.GetPage "/about/publications" }}<p class="wrap phone-only render-band__more"><a class="link home-more" href="{{ .RelPermalink }}#what-others-write">All quotes{{ $arrow }}</a></p>{{ end }}
   </section>
