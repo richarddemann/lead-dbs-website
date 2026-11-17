@@ -455,7 +455,8 @@ if (wk) {
     if (!pause || pause.width < 44 || pause.height < 44) fail('hero pause target below 44px');
     await page.locator('.nav__toggle').click();
     const lockState = () => ({ open: document.querySelector('.nav').classList.contains('is-open'), root: getComputedStyle(document.documentElement).overflowY, sheet: getComputedStyle(document.querySelector('#site-menu')).overscrollBehaviorY });
-    const locked = await until(page, () => { const s = getComputedStyle(document.documentElement).overflowY === 'hidden' && getComputedStyle(document.querySelector('#site-menu')).overscrollBehaviorY === 'contain'; return s; });
+    // Older WebKit builds (Playwright's Linux WebKit) don't implement overscroll-behavior; there the property reads undefined and only the root lock can be checked.
+    const locked = await until(page, () => { const sheet = getComputedStyle(document.querySelector('#site-menu')).overscrollBehaviorY; return getComputedStyle(document.documentElement).overflowY === 'hidden' && (sheet === undefined || sheet === 'contain'); });
     if (!locked) fail(`root scroller or sheet overscroll is unlocked: ${JSON.stringify(await page.evaluate(lockState))}`);
     await page.keyboard.press('Escape');
     if (await page.evaluate(() => getComputedStyle(document.documentElement).overflowY === 'hidden')) fail('root remains locked after Escape');
