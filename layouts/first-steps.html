@@ -16,7 +16,7 @@
     <ol class="dl-grid dl-grid--3">
       {{- range $n, $s := .Params.steps }}
       {{- $acts := slice }}
-      {{- range $s.actions }}{{ $href := .url }}{{ with .page }}{{ $href = partial "resolve-url.html" (dict "url" . "page" $page) }}{{ end }}{{ $acts = $acts | append (dict "href" $href "text" .text "ext" (ne .url nil)) }}{{ end }}
+      {{- range $s.actions }}{{ $href := .url }}{{ with .page }}{{ $href = partial "resolve-url.html" (dict "url" . "page" $page) }}{{ end }}{{ $acts = $acts | append (dict "href" $href "text" .text "ext" (ne .url nil) "icon" (.icon | default "doc")) }}{{ end }}
       {{- $main := index $acts 0 }}
       <li class="dl-step fs-step" id="{{ $s.id }}">
         <h2><span class="dl-step__n">{{ add $n 1 }}</span><span>{{ partial "nobreak.html" $s.title }}</span></h2>
@@ -30,6 +30,7 @@
         </a>
         {{- else if eq $s.show "report" }}
         <a class="fs-file fs-file--report" href="{{ $main.href }}">
+          <svg class="fs-file__ic phone-only" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 13.5h11M4.5 11V8M8 11V4.5M11.5 11V6.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
           <svg class="fs-file__chart" viewBox="0 0 212 84" aria-hidden="true"><rect class="r3" width="212" height="28"/><rect class="r2" y="28" width="212" height="24"/><rect class="r1" y="52" width="212" height="32"/><circle class="a" cx="14" cy="62" r="4"/><circle class="b" cx="24" cy="70" r="4"/><circle class="a" cx="40" cy="50" r="4"/><circle class="b" cx="50" cy="60" r="4"/><circle class="a" cx="66" cy="40" r="4"/><circle class="b" cx="76" cy="52" r="4"/><circle class="a" cx="92" cy="38" r="4"/><circle class="b" cx="102" cy="46" r="4"/><circle class="a" cx="118" cy="66" r="4"/><circle class="b" cx="128" cy="52" r="4"/><circle class="a" cx="144" cy="56" r="4"/><circle class="b" cx="154" cy="48" r="4"/><circle class="a" cx="170" cy="30" r="4"/><circle class="b" cx="180" cy="50" r="4"/><circle class="a" cx="196" cy="58" r="4"/><circle class="b" cx="204" cy="44" r="4"/></svg>
           <span class="fs-file__t"><b>Your report</b><span>Distance from the experts</span></span>
           <span class="fs-file__go"><span class="sr-only">{{ $main.text }}</span><span aria-hidden="true">Open</span></span>
@@ -37,7 +38,7 @@
         {{- else }}{{ errorf "%s: step %q: show must be release, dataset or report" $page.File.Path $s.title }}
         {{- end }}
         {{- with after 1 $acts }}
-        <p class="dl-step__actions">{{ range . }}<a class="link" href="{{ .href }}">{{ .text }}{{ if .ext }}<span class="ext-mark" aria-hidden="true">↗</span><span class="sr-only"> (another site)</span>{{ end }}</a>{{ end }}</p>
+        {{ $ic := dict "doc" `<path d="M4.5 2h5L12 4.5v9.5h-7.5z M9.5 2v2.5H12 M6.5 8h3.5 M6.5 10.5h3.5"/>` "book" `<path d="M3 3.5c1.8-.6 3.5-.4 5 .8v9.2c-1.5-1.2-3.2-1.4-5-.8z M13 3.5c-1.8-.6-3.5-.4-5 .8v9.2c1.5-1.2 3.2-1.4 5-.8z"/>` "play" `<path d="M5.5 3.5v9l7-4.5z"/>` }}<p class="dl-step__actions">{{ range . }}<a class="link" href="{{ .href }}"><svg class="fs-act__ic phone-only" viewBox="0 0 16 16" aria-hidden="true">{{ index $ic .icon | safeHTML }}</svg><span class="fs-act__t">{{ .text }}</span>{{ if .ext }}<span class="ext-mark" aria-hidden="true">↗</span><span class="sr-only"> (another site)</span>{{ end }}</a>{{ end }}</p>
         {{- end }}
       </li>
       {{- end }}

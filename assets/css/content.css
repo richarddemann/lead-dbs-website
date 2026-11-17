@@ -290,7 +290,8 @@ html:not(.js) .atlas-filter[inert] { display: none; }
 
 .resource-index__link:is(:not(*), :focus-visible) .resource-index__title  { color: var(--action); }
 @media (max-width: 639px) {
-  .prose a.resource-index__link { grid-template-columns: minmax(0, 1fr) 12px; gap: var(--s-1) var(--s-4); padding-block: var(--s-5); }
+  .prose a.resource-index__link { grid-template-columns: minmax(0, 1fr) 12px; gap: var(--s-1) var(--s-4); min-height: 64px; padding-block: var(--s-3); }
+  .resource-index__title { font-size: var(--t-doc); }
   .resource-index__title { grid-column: 1; grid-row: 1; }
   .resource-index__text { grid-column: 1; grid-row: 2; }
   .resource-index__arrow { grid-column: 2; grid-row: 1 / 3; }
@@ -402,6 +403,18 @@ html:not(.js) .atlas-filter[inert] { display: none; }
 @media (hover: hover) { .prose .atlas-tile a:hover .atlas-tile__title { color: var(--action) !important; } }
 .prose .atlas-hub { margin-top: 0; }
 .prose .atlas-hub > h2 { margin: clamp(56px, 6vw, 96px) 0 var(--s-5); font-size: var(--t-h2); font-weight: 600; line-height: 1.05; letter-spacing: -.03em; }
+/* a phone: smaller picture cards, two across (the first catalogue across both columns, 16:9), so a
+   screen holds several of them; the picture keeps its rounded frame, the name and its line under it */
+@media (max-width: 639px) {
+  .prose ul.atlas-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5) var(--s-3); }
+  .prose ul.atlas-tiles:not(.atlas-tiles--two) > .atlas-tile:first-child { grid-column: 1 / -1; }
+  .atlas-tile__media { aspect-ratio: 1; margin-bottom: var(--s-3); border-radius: var(--r-md); }
+  .atlas-tile--wide .atlas-tile__media { aspect-ratio: 1; }
+  .atlas-tiles:not(.atlas-tiles--two) > .atlas-tile:first-child .atlas-tile__media { aspect-ratio: 16 / 9; }
+  .atlas-tile__title { font-size: var(--t-doc); font-weight: 500; }
+  .atlas-tile__text { font-size: var(--t-small); }
+  .prose .atlas-hub > h2 { margin-top: var(--s-8); margin-bottom: var(--s-4); }
+}
 /* {{< link-rows style="cells" >}}: the links as one frame of cells, two across (Get help on Docs and
    help), in the manner of the download page: a name, one short line, the arrow in the corner */
 .link-cells__arrow { position: absolute; top: var(--s-5); right: var(--s-5); color: var(--muted); font-size: var(--t-note); line-height: 1; transition: color var(--t-out) var(--ease), transform var(--t-out) var(--ease); }
@@ -553,7 +566,7 @@ html .prose .cells a { color: var(--ink); text-decoration-color: var(--line-stro
 .prose .atlas-filter__count:empty { min-height: 0; }
 
 @media (max-width: 639px) {
-  .cm-hero__photo, .atlas-tile__media, .prose .atlas-hero img { border-radius: 0; }
+  .cm-hero__photo, .prose .atlas-hero img { border-radius: 0; }
   .prose .atlas-hero > .img-zoom { width: 100%; }
   .prose p.atlas-hero { padding: 0; border: 0; border-radius: 0; background: none; }
   .prose .video-card__chapters, .prose .chapters__more > summary, .ws-archive .prose > details.more > summary { min-height: 44px; }

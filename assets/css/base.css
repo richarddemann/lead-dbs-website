@@ -30,6 +30,7 @@
   --ease-out: cubic-bezier(.22, 1, .36, 1);
   /* elevation, three steps and no more: 1 a small thing lifted off its ground (a vignette, a date leaf),
      2 a printed sheet on the page (a flyer, a report), 3 what floats over the page (the menu band, dialogs) */
+  --shadow-xs: 0 1px 2px rgb(0 0 0 / .05);  /* a field or a form card: barely off the ground (shadcn's shadow-xs) */
   --shadow-1: 0 1px 2px rgb(0 0 0 / .06), 0 6px 20px -8px rgb(0 0 0 / .18);
   --shadow-2: 0 1px 2px rgb(0 0 0 / .08), 0 12px 28px -10px rgb(0 0 0 / .28);
   --shadow-3: 0 20px 60px -16px rgb(0 0 0 / .25);
@@ -231,6 +232,21 @@ p:not(:where(.prose *)) a:not([class]) { --rest: color-mix(in oklab, currentColo
 
 /* ---------------------------------------------------------------- forms */
 .form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4); max-width: var(--measure); margin: 0 0 1.5em; }
+/* A form is a card in the manner of shadcn/ui (Card, Label, Input, Textarea, Button): the page's own
+   ground in a hairline frame with a faint shadow, 24px inside; a label 14px over each field; fields 40px
+   high with an 8px radius, a hairline and a 1px shadow, and a 3px soft ring on focus; one full-width
+   submit button with an 8px radius (no pill, no arrow); the note small under it. */
+.form { gap: var(--s-5); padding: var(--s-5); border: 1px solid var(--line); border-radius: var(--r-md); background: var(--bg); box-shadow: var(--shadow-xs); }
+.form .field { gap: var(--s-2); }
+.form .field :is(input:not([type=checkbox]), select, textarea) { height: 40px; min-height: 40px; padding: 0 var(--s-3); border-color: var(--line-strong); border-radius: var(--r-sm); background: transparent; box-shadow: var(--shadow-xs); }
+.form .field :is(input:not([type=checkbox]), select, textarea):focus { border-color: var(--action); box-shadow: 0 0 0 3px color-mix(in oklab, var(--action) 30%, transparent); }
+.form .btn-row { display: block; }
+.form .btn-row .btn { width: 100%; height: 40px; min-height: 40px; justify-content: center; border-radius: var(--r-sm); font-size: var(--t-small); }
+.form .btn-row .btn::after { content: none; }
+.form .btn[disabled] { opacity: .5; }
+.form :is(.form-note, .form-status) { margin-top: calc(-1 * var(--s-2)); }
+@media (max-width: 639px) { .form .field :is(input:not([type=checkbox]), select, textarea), .form .btn-row .btn { height: 44px; min-height: 44px; } }
+.form .field textarea:not([type=checkbox]) { height: auto; min-height: 128px; padding-block: var(--s-2); resize: vertical; }
 .form > :is(.field--full, .btn-row, p), .form > .field:has(textarea) { grid-column: 1 / -1; }
 @media (max-width: 639px) { .form { grid-template-columns: minmax(0, 1fr); } }
 .field { display: grid; gap: var(--s-2); font-size: var(--t-small); font-weight: 500; }
@@ -249,7 +265,7 @@ p:not(:where(.prose *)) a:not([class]) { --rest: color-mix(in oklab, currentColo
   background: var(--bg); color: var(--ink); font: 400 var(--t-body)/1.4 var(--font-text);
   transition: border-color var(--t-out) var(--ease), box-shadow var(--t-out) var(--ease), background-color var(--t-out) var(--ease);
 }
-.field textarea { height: auto; min-height: 120px; padding-block: var(--s-3); resize: vertical; }
+
 @media (hover: hover) { .field :is(input:not([type=checkbox]), select, textarea):hover { border-color: color-mix(in oklab, var(--ink) 48%, transparent); } }
 /* a focused field: the accent border and a soft ring instead of the outline */
 .field :is(input:not([type=checkbox]), select, textarea):focus {

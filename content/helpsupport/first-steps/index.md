@@ -13,7 +13,8 @@ layout: "first-steps"
 # the sections that template draws, for the search entries below (the build checks them against this list)
 anchors: ["install", "lead-tutor", "compare", "troubleshooting"]
 # The steps: a title, one or two sentences (Markdown) and up to two actions (page: a site path, or url:
-# another site; the first is drawn as the step's file, its text read out to screen readers). show: the small
+# another site; the first is drawn as the step's file, its text read out to screen readers; icon: doc, book or
+# play, the small picture of a further action on a phone). show: the small
 # picture of the step:
 #   release   the current release (data/release.yaml), which leads to the download page, not to a file
 #   dataset   the practice dataset as a file ("name", "facts")
@@ -25,7 +26,7 @@ steps:
     show: release
     actions:
       - {text: "Open the download page", page: "/download/"}
-      - {text: "Installation instructions", page: "/download/#install"}
+      - {text: "Installation instructions", page: "/download/#install", icon: "doc"}
   - id: "lead-tutor"
     title: "Get the practice data"
     text: "[Lead Tutor](/helpsupport/learn-lead-dbs-yourself/) is an open dataset of ten real patients, with their electrodes already localized by experts."
@@ -34,14 +35,14 @@ steps:
     facts: "10 patients · MRI and CT"
     actions:
       - {text: "Download Lead Tutor", url: "https://osf.io/jxecg/?view_only=f2765a6aa3604dea8afa14365b70381c"}
-      - {text: "Guide", page: "/manual/lead-dbs/self-tutoring-with-lead-tutor/"}
+      - {text: "Guide", page: "/manual/lead-dbs/self-tutoring-with-lead-tutor/", icon: "book"}
   - id: "compare"
     title: "Localize, then get your report"
     text: "Localize each patient’s electrodes and press *Submit Results…* to receive a report of their distances from expert localizations."
     show: report
     actions:
       - {text: "See a report", page: "/helpsupport/learn-lead-dbs-yourself/#your-report"}
-      - {text: "Walkthrough videos", page: "/helpsupport/knowledge-base/walkthrough-videos/"}
+      - {text: "Walkthrough videos", page: "/helpsupport/knowledge-base/walkthrough-videos/", icon: "play"}
 # If something goes wrong: the problem and the command to type in MATLAB
 fixes:
   - {problem: "Errors after an update", command: "ea_restoreprefs(1,1)"}

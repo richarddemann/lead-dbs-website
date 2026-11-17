@@ -31,10 +31,11 @@
   .g-wall--renders .g-item:first-child .g-item__img { aspect-ratio: auto; }
 }
 /* the figures: whole, on white mats, in masonry columns, their source under them */
-.g-wall--figures { columns: 1; column-gap: var(--s-4); }
-@media (min-width: 560px) { .g-wall--figures { columns: 2; } }
+.g-wall--figures { columns: 2; column-gap: var(--s-3); }
+@media (min-width: 560px) { .g-wall--figures { column-gap: var(--s-4); } }
 @media (min-width: 1024px) { .g-wall--figures { columns: 3; } }
 .g-wall--figures .g-item { margin-bottom: var(--s-5); }
+@media (max-width: 559px) { .g-wall--figures .g-item { margin-bottom: var(--s-4); } }
 .g-item__src { margin: var(--s-2) 0 0; color: rgb(255 255 255 / .6); font-size: var(--t-label); line-height: 1.4; }
 /* the covers: small equal tiles */
 .g-wall--covers { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: var(--s-3); }

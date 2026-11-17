@@ -339,29 +339,21 @@ html body.kind-home .nav:not(.is-scrolled, .is-open) { border-bottom-color: tran
 .render-band__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--s-3) var(--s-6); }
 @media (max-width: 639px) {
   /* -------------------------------------------------------------- 4. one black stretch
-     the voices: cards in one row that scrolls sideways with snap, each quote once, standing still; the
-     wide render is not shown. A hairline, then the figures from papers in
-     one row at one height, their journal and year under each, and an outline pill to the gallery. */
-  .home > .render-band { padding-block: var(--s-9) 0; background: var(--render); }
-  .render-band__img, .render-band__actions { display: none; }
-  .drift { display: flex; gap: var(--s-3); margin-top: var(--s-6); padding: 0 var(--gut); overflow-x: auto; overscroll-behavior-x: contain;
-    scroll-snap-type: x mandatory; scroll-padding-inline: var(--gut); scrollbar-width: none; -webkit-mask-image: none; mask-image: none; }
-  .drift::-webkit-scrollbar { display: none; }
-  .drift:focus-visible { outline-offset: -2px; }
-  .drift__row, .drift__track, .drift__set { display: contents; }
-  .drift__track { animation: none; }
-  .drift__set[aria-hidden] { display: none; }
-  .drift__item { flex: none; width: 284px; scroll-snap-align: start; }
-@media (hover: hover) { .drift:has(.drift__item:hover) .drift__item:not(:hover) { opacity: 1; } }
-  .drift__item > figure { display: flex; flex-direction: column; justify-content: space-between; gap: var(--s-5); height: 100%; min-height: 212px; padding: var(--s-5);
-    border-radius: var(--r-lg); background: color-mix(in srgb, var(--on-render) 4%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--on-render) 10%, transparent); }
-  .drift__item blockquote { white-space: normal; font: 500 var(--t-sub)/1.273 var(--font-display); letter-spacing: var(--display-tracking-xl); text-wrap: pretty; }
-  .drift__q { color: inherit; }
-  .drift__item figcaption { white-space: normal; color: color-mix(in srgb, var(--on-render) 60%, transparent); font: 400 var(--t-small)/1.43 var(--font-text); }
-  .drift__item figcaption b { display: block; color: var(--on-render); }
-  .drift__item figcaption em { display: block; }
+     the voices: the same two drifting rows as on a large screen (a banner, as on vercel.com), set
+     smaller; each phrase with its speaker on one line under it. The pause button stays beside the
+     heading (WCAG 2.2.2); the wide render is not shown. A hairline, then the figures from papers. */
+  .home > .render-band { padding-block: var(--s-8) 0; background: var(--render); }
+  .render-band__img { display: none; }
+  .render-band__wrap { position: static; }
+  .render-band__actions { position: absolute; right: var(--gut); bottom: 0; }
+  .render-band__actions .btn { display: none; }
+  .drift { gap: var(--s-5); margin-top: var(--s-6); }
+  .drift__set { gap: var(--s-7); padding-right: var(--s-7); }
+  .drift__item blockquote { font: 500 var(--t-card)/1.25 var(--font-display); letter-spacing: var(--display-tracking); }
+  .drift__item figcaption { font-size: var(--t-label); }
   .drift__item figcaption > span:not(.drift__who):has(+ .drift__who) { display: none; }
-  .render-band__more { margin-top: var(--s-3); }
+  .drift__who b { font-weight: 500; }
+  .render-band__more { display: flex; align-items: center; min-height: 44px; margin-top: var(--s-4); margin-bottom: 0; }
 }
 /* Made with Lead-DBS on black, right under the voices (layouts/home.html): the heading and its pill, under
    them two equal halves a wide gap apart: the endless grid of figures, its left edge under the heading's,
