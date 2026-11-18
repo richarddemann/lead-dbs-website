@@ -60,9 +60,8 @@
         {{ range sort $years "value" "desc" }}{{ range index $groups . }}
         {{ $file := index ($archive.Params.pictures | default dict) .id }}{{ $img := false }}{{ with $file }}{{ $img = $archive.Resources.GetMatch . }}{{ end }}
         {{ if not $img }}{{ errorf "events: the workshop %q has no picture (pictures: in %s)" .id $archive.File.Path }}{{ end }}
+        {{ with index ($archive.Params.crops | default dict) .id }}{{ $img = ($img.Crop (printf "%dx%d TopLeft" (index . 2) (index . 3))).Crop (printf "%dx%d BottomRight" (sub (index . 2) (index . 0)) (sub (index . 3) (index . 1))) }}{{ end }}
         {{ $banner := gt (div (float $img.Width) $img.Height) 2.0 }}
-        {{- /* a workshop whose only picture is a wide banner has no tile: its row is in the archive page */}}
-        {{ if not $banner }}
         <li class="ws-tile{{ if eq $n 0 }} ws-tile--lead{{ end }}{{ if $banner }} ws-tile--type{{ end }}"><a href="{{ $archive.RelPermalink }}#{{ .id }}">
           {{ if not $banner }}{{- /* the lead tile spans two columns from 768px; the others one (about a third), two on a phone */ -}}
           {{ $ws := cond (eq $n 0) (slice 600 900 1200) (slice 360 540 720) }}{{ $set := slice }}{{ $t := false }}
@@ -71,7 +70,6 @@
           <span class="ws-tile__cap"><b>{{ .city }}</b> {{ .month }} {{ index (findRE `\b(19|20)\d\d\b` .title 1) 0 }}</span>
         </a></li>
         {{ $n = add $n 1 }}
-        {{ end }}
         {{ end }}{{ end }}
       </ol>
       <p class="workshop-archive__more"><a class="link" href="{{ $archive.RelPermalink }}">All past workshops</a></p>

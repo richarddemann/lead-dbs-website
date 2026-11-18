@@ -71,6 +71,6 @@
   </section>
   {{- end }}
 
-  <div class="wrap page-related">{{ partial "next-steps.html" . }}</div>
+  {{ with trim (partial "next-steps.html" .) " \n\t" }}<div class="wrap page-related">{{ . | safeHTML }}</div>{{ end }}
 </main>
 {{ end }}

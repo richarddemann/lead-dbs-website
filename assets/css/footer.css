@@ -16,6 +16,7 @@
   border-top: 1px solid var(--line); font-size: var(--t-label); color: var(--muted); }
 .footer__legal p { margin: 0; }
 .footer .footer__legal-links { display: flex; flex-wrap: wrap; gap: 0 var(--s-5); }
+.footer .footer__legal-links a { min-inline-size: 44px; }
 @media (max-width: 1023px) { .footer :is(.footer__links, .footer__legal) a { min-height: 44px; } }
 @media (max-width: 639px) {
   .footer { padding: var(--s-6) 0 calc(var(--s-4) + env(safe-area-inset-bottom)); }

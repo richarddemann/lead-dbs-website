@@ -892,10 +892,11 @@ aliases:
 share: "images/renders/head-docs.jpg"
 # "Related" at the end of the page (layouts/_partials/next-steps.html)
 next:
-  - {url: "https://inviter.co/lead-dbs", name: "Join the user Slack"}
-  - {page: "/helpsupport/#get-help", name: "Get help"}
+  - {page: "/helpsupport/slack-user-channel/", name: "About the user Slack"}
 ---
 
 The Lead-DBS support forum is closed, and its posts were not moved to this website. Questions are
 answered on the [user Slack](/helpsupport/slack-user-channel/) now; where to ask what is listed under
 [Get help](/helpsupport/#get-help).
+
+{{< button href="https://inviter.co/lead-dbs" variant="primary" >}}Join the user Slack{{< /button >}}

@@ -1,7 +1,7 @@
 {{- /* One event as a card, for phones (lu.ma's event card): the body is one link to the event's page (its
        time, title and place on the left, the flyer as a small poster on the right), under it a strip with
        the state of registration and one small pill, "Register ↗" while registration is open, else the plain
-       link "Details". On /events/ (events/card.html) the day stands on the rail above the card; elsewhere
+       link "Add to calendar" (the body already leads to the details). On /events/ (events/card.html) the day stands on the rail above the card; elsewhere
        (an event page's "More events") "dated" puts the date into the card's first line.
        Argument: dict "ev" (an entry of events/list.html) "page" "dated" (true or false).
        Its own markup, shown below 640px only (the caller wraps it in .phone-only). */ -}}
@@ -30,8 +30,9 @@
     <p class="ev-card__status">{{ if $e.register_url }}Registration open{{ else }}Registration not open yet{{ end }}</p>
     {{- if $e.register_url }}
     <a class="btn btn--primary btn--sm" href="{{ partial "resolve-url.html" (dict "url" $e.register_url "page" $page) }}">Register{{ if $ext }}<span class="ext-mark" aria-hidden="true">↗</span><span class="sr-only"> (another site)</span>{{ end }}</a>
-    {{- else if $details }}
-    <a class="link ev-card__more" href="{{ $details }}">Details<span class="sr-only">: {{ $e.title }}</span></a>
+    {{- else }}
+    {{- /* the card's body already leads to the details: the strip offers saving the date instead */}}
+    <a class="link ev-card__more" download="{{ urlize $e.title }}.ics" href="{{ partial "events/ics.html" (dict "ev" $ev "details" $details) | safeURL }}">Add to calendar<span class="sr-only">: {{ $e.title }}</span></a>
     {{- end }}
   </div>
 </div>

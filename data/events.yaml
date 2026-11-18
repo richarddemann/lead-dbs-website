@@ -9,7 +9,7 @@
 #   title         name of the event
 #   start         a date (2027-02-11) or a date and time in the event's time zone (2026-11-18T15:00)
 #   end           optional: last day (2027-02-12), or the end time (2026-11-18T16:30); after start.
-#                 Without it the event counts as over at the end of its start day.
+#                 Without it a timed event lasts one hour, a day event its whole day.
 #                 A time is a time of the clock in that zone: one the clock skips when summer time
 #                 begins (02:30 on the last Sunday of March in Berlin) stops the build.
 #   timezone      the IANA time zone of start and end, e.g. "Europe/Berlin". The site prints the

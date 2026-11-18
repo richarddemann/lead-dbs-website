@@ -21,7 +21,10 @@
 {{- $lines := slice "BEGIN:VCALENDAR" "VERSION:2.0" "PRODID:-//Lead-DBS//Events//EN" "CALSCALE:GREGORIAN" "BEGIN:VEVENT"
     (printf "UID:%s-%s@lead-dbs.org" $ev.id (replace $ev.date_only "-" ""))
     (printf "DTSTAMP:%s" (now.UTC.Format $utc)) -}}
-{{- if not $ev.timed -}}
+{{- /* a timed start with an end that is only a day (a two-day workshop from 09:00) is saved as whole days:
+       a timed block would hold the nights between; the start time stays in the description */ -}}
+{{- $daysOnly := and $ev.timed $e.end (le (len (string $e.end)) 10) -}}
+{{- if or (not $ev.timed) $daysOnly -}}
   {{- $lines = $lines | append (printf "DTSTART;VALUE=DATE:%s" ($ev.start.Format "20060102")) (printf "DTEND;VALUE=DATE:%s" ($ev.ends.Format "20060102")) -}}
 {{- else -}}
   {{- $end := $ev.ends -}}
@@ -29,7 +32,9 @@
   {{- $lines = $lines | append (printf "DTSTART:%s" ($ev.start.UTC.Format $utc)) (printf "DTEND:%s" ($end.UTC.Format $utc)) -}}
 {{- end -}}
 {{- $lines = $lines | append (printf "SUMMARY:%s" (index $esc 0)) (printf "LOCATION:%s" (index $esc 1)) -}}
-{{- with index $esc 2 }}{{ $lines = $lines | append (printf "DESCRIPTION:%s" .) }}{{ end -}}
+{{- $desc := index $esc 2 -}}
+{{- if $daysOnly }}{{ $desc = printf "Starts %s at %s. %s" ($ev.start.Format "2 January") ($ev.start.Format "15:04 MST") $desc | strings.TrimSpace }}{{ end -}}
+{{- with $desc }}{{ $lines = $lines | append (printf "DESCRIPTION:%s" .) }}{{ end -}}
 {{- with .details }}{{ $lines = $lines | append (printf "URL:%s" (absURL .)) }}{{ end -}}
 {{- $lines = $lines | append "END:VEVENT" "END:VCALENDAR" -}}
 {{- $ics := "" -}}

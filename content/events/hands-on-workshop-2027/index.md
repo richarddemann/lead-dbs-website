@@ -1,5 +1,5 @@
 ---
-title: "Hands-on Lead-DBS workshop 2027"
+title: "Hands-on Lead-DBS workshop"
 linkTitle: "Hands-on Lead-DBS workshop 2027"
 description: "Hands-on Lead-DBS workshop, Cologne, 11–12 February 2027: an early preview of Lead-DBS 4.0. Registration is not open yet."
 # an event page (layouts/event.html): the facts and registration come from data/events.yaml

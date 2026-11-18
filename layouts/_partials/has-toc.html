@@ -1,2 +1,3 @@
-{{- /* Archived essays retain their original narrative flow. */ -}}
-{{- return (and (not .Params.archived) (ge .WordCount 600) (ge (len (partial "toc-sections.html" .Fragments.Headings)) site.Params.tocMinHeadings)) -}}
+{{- /* Archived essays retain their original narrative flow. A long page whose words are few (a release post
+       of pictures) can ask for the contents with front matter contents: true. */ -}}
+{{- return (and (not .Params.archived) (or (eq .Params.contents true) (ge .WordCount 600)) (ge (len (partial "toc-sections.html" .Fragments.Headings)) site.Params.tocMinHeadings)) -}}

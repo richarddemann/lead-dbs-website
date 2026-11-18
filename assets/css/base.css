@@ -47,6 +47,8 @@
   :root { --gut: 80px; --row-gap: 24px; --band: 96px; --t-doc: 18px; --t-lead: 20px; --t-card: 20px; --t-sub: 23px; --t-h3: 32px; }
 }
 
+body > .footer { margin-top: auto; }
+body > :is(main, .footer) { flex: none; }
 /* colours: the page ground; .ground-surface (a grey band) and .ground-inverse (the dark footer) swap them */
 :root {
   --bg: var(--p-bg); --surface: var(--p-surface); --ink: var(--p-ink); --muted: var(--p-muted);
@@ -67,6 +69,8 @@
 *, ::before, ::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 body {
+  /* a short page still ends in the footer at the bottom of the window, not above a strip of ground */
+  display: flex; flex-direction: column; min-height: 100svh;
   margin: 0; background: var(--bg); color: var(--ink);
   font: 400 var(--t-body)/1.55 var(--font-text);
   -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
@@ -244,7 +248,9 @@ p:not(:where(.prose *)) a:not([class]) { --rest: color-mix(in oklab, currentColo
 .form .btn-row .btn { width: 100%; height: 40px; min-height: 40px; justify-content: center; border-radius: var(--r-sm); font-size: var(--t-small); }
 .form .btn-row .btn::after { content: none; }
 .form .btn[disabled] { opacity: .5; }
-.form :is(.form-note, .form-status) { margin-top: calc(-1 * var(--s-2)); }
+.form .form-status { margin-top: calc(-1 * var(--s-2)); }
+.form .field :is(input, textarea, select):disabled { opacity: .5; cursor: not-allowed; }
+.form .field:has(:disabled) label { opacity: .7; }
 @media (max-width: 639px) { .form .field :is(input:not([type=checkbox]), select, textarea), .form .btn-row .btn { height: 44px; min-height: 44px; } }
 .form .field textarea:not([type=checkbox]) { height: auto; min-height: 128px; padding-block: var(--s-2); resize: vertical; }
 .form > :is(.field--full, .btn-row, p), .form > .field:has(textarea) { grid-column: 1 / -1; }

@@ -30,6 +30,16 @@
 @media (hover: hover) { .news-lead:hover .news-lead__more .m-arrow { transform: translateX(3px); } }
 .news-lead__image { display: grid; place-items: center; }
 .news-lead__image img { display: block; width: auto; max-width: 100%; height: auto; max-height: 440px; border-radius: var(--r-lg); }
+/* a phone: the lead story's picture (often a portrait flyer) is a small thumbnail beside its words, top
+   aligned, as a news app does, so the next stories still show on the first screen */
+@media (max-width: 639px) {
+  .news-lead { padding-block: var(--s-6); }
+  .news-lead--illustrated { grid-template-columns: minmax(0, 1fr) 96px; align-items: start; gap: var(--s-4); }
+  .news-lead--illustrated .news-lead__image { justify-items: end; }
+  .news-lead--illustrated .news-lead__image img { width: 96px; max-height: 136px; object-fit: cover; object-position: top; border-radius: var(--r-sm); box-shadow: 0 0 0 1px var(--line); }
+  .news-lead--illustrated .news-lead__title { font-size: var(--t-sub); }
+  .news-lead--illustrated .news-lead__body p { font-size: var(--t-body); }
+}
 @media (min-width: 900px) {
   .news-lead--illustrated { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
   .news-lead__image { justify-items: end; }
@@ -89,6 +99,7 @@
 /* Slack: introduce the workspace before the invitation action. */
 .prose .slack-lead { margin: 0 0 var(--s-4); max-width: 50ch; font-size: var(--t-lead); line-height: 1.55; }
 .prose .slack-member { margin: 0; font-size: var(--t-small); }
+.prose .slack-member a { display: inline-flex; align-items: center; min-height: 44px; }
 /* Dataset overview: brief facts first, specifications available on demand. */
 .resource-actions { display: flex; align-items: center; flex-wrap: wrap; gap: var(--s-4) var(--s-5); max-width: var(--measure); margin-bottom: var(--s-6); }
 .prose .resource-actions > .button-wrap { margin: 0; }
@@ -102,7 +113,8 @@
    with a label at the foot and "Explore →"; the Follow pills */
 .cm { padding: var(--s-8) 0 var(--s-9); }
 .cm-hero { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-7); align-items: start; }
-@media (min-width: 1024px) { .cm-hero { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--gutter); } }
+/* on a large screen the photo starts where the link lists below it start (the hub sections' sixth column) */
+@media (min-width: 1024px) { .cm-hero { --col: calc((100% - 11 * var(--gutter)) / 12); grid-template-columns: calc(5 * var(--col) + 4 * var(--gutter)) minmax(0, 1fr); gap: var(--gutter); } }
 .cm-hero__lead { margin: 0; max-width: 22ch; font-size: var(--t-statement); line-height: 1.25; letter-spacing: var(--display-tracking); text-wrap: balance; color: var(--ink); }
 .cm-hero__photo { position: relative; margin: 0; border-radius: var(--r-lg); overflow: hidden; }
 .cm-hero__photo img { display: block; width: 100%; height: auto; }

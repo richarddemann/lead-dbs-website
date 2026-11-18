@@ -9,8 +9,8 @@
        page: a site path (optionally with #section), named by its linkTitle unless name is given;
        url: another site, with a name. The build stops on a path that is not a page, the page itself, or more
        than three entries. Argument: the page, or dict "page" "items" with ready entries ({href, name, rel}). */ -}}
-{{- $page := . }}{{ $items := slice -}}
-{{- if reflect.IsMap . }}{{ $page = .page }}{{ $items = .items }}{{ end -}}
+{{- $page := . }}{{ $items := slice }}{{ $heading := "Related" -}}
+{{- if reflect.IsMap . }}{{ $page = .page }}{{ $items = .items }}{{ with .title }}{{ $heading = . }}{{ end }}{{ end -}}
 {{- $place := partial "nav-place.html" $page -}}
 {{- $siblings := slice }}{{ $sibUrls := slice }}{{ with $place.group }}{{ with .Page }}{{ $siblings = $siblings | append . }}{{ end }}{{ range .Children }}{{ with .Page }}{{ $siblings = $siblings | append . }}{{ end }}{{ $sibUrls = $sibUrls | append .URL }}{{ end }}{{ end -}}
 {{- with $page.Params.next -}}
@@ -37,10 +37,10 @@
 {{- if gt (len $items) 3 }}{{ errorf "%s: \"Related\" would show %d links; at most three (a news post links its newer and older post and All news by itself)" $page.File.Path (len $items) }}{{ end -}}
 {{- with $items }}
 <nav class="next-steps" aria-labelledby="next">
-  <h2 class="next-steps__h" id="next">Related</h2>
+  <h2 class="next-steps__h" id="next">{{ $heading }}</h2>
   <ul class="next-steps__list">
     {{- range . }}
-    {{ partial "link-row.html" (dict "kind" "next" "href" .href "title" .name "ext" .ext "rel" .rel) }}
+    {{ partial "link-row.html" (dict "kind" "next" "href" .href "title" .name "text" .text "ext" .ext "rel" .rel "ends" .ends) }}
     {{- end }}
   </ul>
 </nav>

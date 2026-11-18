@@ -22,6 +22,11 @@ pictures:
   hamburg-2019: "Bildschirmfoto-2019-01-24-um-11.05.47-1030x350.png"
   shanghai-2018: "foto_postcard-1030x728.png"
   berlin-2016: "two.png"
+# the part of a picture that shows on the /events/ tiles, [left, top, right, bottom] in its pixels: the
+# photo without the flyer's printed title (the city and date are in the tile's caption)
+crops:
+  brisbane-2020: [60, 160, 1000, 670]
+  shanghai-2018: [0, 0, 1030, 650]
 # "Related" at the end of the page (layouts/_partials/next-steps.html)
 next:
   - {page: "/events/hands-on-workshop-2027/"}

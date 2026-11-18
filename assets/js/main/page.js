@@ -48,6 +48,17 @@ import { leadFragment } from '../lib/fragment.js';
   update();
 })();
 
+// ------------------------------------------------------------------ the folding contents on a phone
+// A jump from the contents under the title closes them first, so the open list does not cover the heading
+// it leads to (the list is sticky on a phone, assets/css/page.css).
+(() => {
+  for (const fold of document.querySelectorAll('details.toc--top')) {
+    fold.addEventListener('click', (event) => {
+      if (event.target.closest('a[href^="#"]')) fold.open = false;
+    });
+  }
+})();
+
 // ------------------------------------------------------------------ the old forum's addresses
 // /?forum=… reached the WordPress forum; a static site serves the home page for it, so say what happened.
 (() => {

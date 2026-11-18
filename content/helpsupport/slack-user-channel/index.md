@@ -14,5 +14,5 @@ Lead-DBS users and developers discuss installation, analyses and ongoing develop
 
 {{< button href="https://inviter.co/lead-dbs" variant="primary" external="true" >}}Join Slack{{< /button >}}
 
-Already a member? [Open the workspace ↗](https://leadsuite.slack.com/)
+Already a member? [Open the workspace](https://leadsuite.slack.com/)
 {.slack-member}

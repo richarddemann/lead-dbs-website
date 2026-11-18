@@ -103,6 +103,8 @@ html .video-embed--poster .video-embed__start { background: linear-gradient(to t
 .prose a.next-step { padding: var(--s-4) 0; color: var(--ink); background: none; text-decoration: none; }
 .next-step::after { content: none; }
 .next-step__title { grid-column: 1; grid-row: 1; font: 500 var(--t-body)/1.4 var(--font-text); text-wrap: pretty; }
+.next-step__text { grid-column: 1; grid-row: 2; font-size: var(--t-small); color: var(--muted); }
+.next-step:has(.next-step__text) .next-step__arrow { grid-row: 1 / span 2; }
 .next-step .next-step__arrow { grid-column: 2; grid-row: 1; align-self: center; width: 14px; height: 14px; margin: 0; color: var(--muted); }
 .next-step .ext-mark { font-size: var(--t-small); line-height: 1; }
 @media (hover: hover) { .next-step:hover .next-step__title { color: var(--action); } }

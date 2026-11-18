@@ -8,9 +8,11 @@
 // [data-ev-live] / [data-ev-over-note] (an event's page): swap the registration and the actions for the
 // "took place" line.
 // [data-ev-local]: add the start time in the visitor's own time zone when it differs.
+// li[data-ev-ends] (an event page's "Related"): hide the row of an event that has ended since the build.
 (() => {
   const now = Date.now();
   const over = (el) => Date.parse(el.dataset.evEnds) <= now;
+  document.querySelectorAll('li[data-ev-ends]').forEach((li) => { li.hidden = over(li); });
   const noDates = (list) => {
     if (list.parentElement.querySelector('[data-ev-empty]')) return;
     const p = document.createElement('p');

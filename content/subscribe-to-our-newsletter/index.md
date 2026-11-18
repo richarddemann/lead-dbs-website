@@ -12,15 +12,18 @@ next:
   - {page: "/news/"}
   - {page: "/helpsupport/slack-user-channel/"}
 # The lead says that sign-up is unavailable: change it when the newsletter form gets an action (data/forms.yaml).
+# what the recent issues announced, as rows (layouts/_shortcodes/link-rows.html): the posts on this site
+announced:
+  - {name: "Critical update: Lead-DBS 3.2.1", text: "March 2026", url: "/critical-update-lead-dbs-3-2-1/"}
+  - {name: "Lead-DBS 3.2", text: "February 2025", url: "/lead-dbs-3-2-out-now/"}
+  - {name: "Lead-DBS 3.1", text: "February 2024", url: "/lead-dbs-3-1-out-now/"}
+  - {name: "Lead-DBS 3.0", text: "October 2023", url: "/lead-dbs-3-0-out-now/"}
 ---
 
-Newsletter sign-up is unavailable here. Past issues are below.
+Newsletter sign-up is unavailable here. What recent issues announced is below.
 
 {{< newsletter >}}
 
-## Recent issues
+## What recent issues announced {#recent-issues}
 
-- [Critical update: Lead-DBS 3.2.1](/critical-update-lead-dbs-3-2-1/), March 2026
-- [Lead-DBS 3.2](/lead-dbs-3-2-out-now/), February 2025
-- [Lead-DBS 3.1](/lead-dbs-3-1-out-now/), February 2024
-- [Lead-DBS 3.0](/lead-dbs-3-0-out-now/), October 2023
+{{< link-rows key="announced" >}}

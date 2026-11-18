@@ -41,6 +41,7 @@
       {{ end }}
     </div>
   </div>
-  <div class="wrap page-related">{{ partial "next-steps.html" . }}</div>
+  {{- /* the "Related" rows, only when there are some (an empty wrapper would leave a padded band) */}}
+  {{ with trim (partial "next-steps.html" .) " \n\t" }}<div class="wrap page-related">{{ . | safeHTML }}</div>{{ end }}
 </main>
 {{ end }}

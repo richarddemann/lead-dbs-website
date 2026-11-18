@@ -273,6 +273,9 @@ img.featured { display: block; margin: 0 0 var(--s-6); border-radius: var(--r-md
   .breadcrumb .breadcrumb__parent::before { content: none; }
   .page-head__panel { margin-inline: calc(-1 * var(--gut)); border-radius: 0; }
   .toc--top { position: sticky; top: var(--nav); z-index: 10; background: var(--bg); }
+  /* a heading reached from the sticky contents lands below them too (the closed bar is 44px and its two
+     hairlines), not under them (assets/js/main/page.js closes the contents on a jump) */
+  .prose:has(> .toc--top) :is(h2, h3, h4) { scroll-margin-top: calc(var(--nav) + 46px + var(--s-4)); }
 }
 
 .page-opening { margin-top: var(--s-6); }

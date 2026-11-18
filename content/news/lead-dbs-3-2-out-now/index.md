@@ -5,6 +5,11 @@ date: 2025-02-28
 slug: "lead-dbs-3-2-out-now"
 image: "lead-tutor.png"
 image_alt: "Title of the Lead Tutor paper in Aperture Neuro, over electrodes on a brain section"
+# the Lead Tutor resources, as rows (layouts/_shortcodes/link-rows.html)
+tutor:
+  - {name: "Download the dataset", text: "Lead Tutor on OSF", url: "https://osf.io/jxecg/?view_only=f2765a6aa3604dea8afa14365b70381c"}
+  - {name: "Read the paper", text: "Aperture Neuro", url: "https://apertureneuro.org/article/129658-lead-tutor-an-open-access-educational-resource-for-deep-brain-stimulation-electrode-localizations"}
+  - {name: "Open the tutorial", text: "Learn electrode localization with Lead Tutor", url: "/helpsupport/learn-lead-dbs-yourself/"}
 ---
 
 Lead-DBS 3.2, released by Ningfei Li, adds [Lead Tutor](/manual/lead-dbs/self-tutoring-with-lead-tutor/) for practising electrode localization, new atlases and fixes.
@@ -21,17 +26,7 @@ Download the dataset, localize the electrodes and select “Submit Results” to
 
 ![Results of user localizations compared to expert users, a report created automatically by Lead Tutor](lead-tutor-report.png "Results of user localizations compared to expert users, a report created automatically by Lead Tutor.")
 
-{{% row %}}
-{{% col "1/3" %}}
-{{< button href="https://osf.io/jxecg/?view_only=f2765a6aa3604dea8afa14365b70381c" >}}Download Lead Tutor{{< /button >}}
-{{% /col %}}
-{{% col "1/3" %}}
-{{< button href="https://apertureneuro.org/article/129658-lead-tutor-an-open-access-educational-resource-for-deep-brain-stimulation-electrode-localizations" >}}Read the Lead Tutor paper{{< /button >}}
-{{% /col %}}
-{{% col "1/3" %}}
-{{< button href="/helpsupport/learn-lead-dbs-yourself/" >}}Lead Tutor{{< /button >}}
-{{% /col %}}
-{{% /row %}}
+{{< link-rows key="tutor" >}}
 
 ## New atlases
 

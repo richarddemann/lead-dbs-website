@@ -17,9 +17,15 @@
         <picture><source type="image/webp" srcset="{{ delimit $set ", " }}" sizes="(min-width: 1280px) 760px, (min-width: 1024px) 60vw, 100vw"><img class="featured" src="{{ $fb.RelPermalink }}" width="{{ $fb.Width }}" height="{{ $fb.Height }}" alt="{{ $.Params.image_alt }}" fetchpriority="high" decoding="async"></picture>
         {{ end }}
       {{ end }}
-      {{- /* a post older than three years says so above its text, so nobody mistakes it for current advice */}}
-      {{ if gt (now.Sub .Date).Hours (mul 24 365 3) }}{{ with hugo.Data.release }}
-      <p class="fine-print post-archive">The current version is <a href="{{ with site.GetPage "/download" }}{{ .RelPermalink }}{{ end }}">Lead-DBS&nbsp;{{ .version }}</a>.</p>
+      {{- /* a post about an earlier release (its title names a Lead-DBS version other than the current one),
+             or any post older than three years, says so in a notice above its text, with the way to the
+             current version and its notes, so nobody takes it for current installation advice */}}
+      {{ with hugo.Data.release }}{{ $rel := . }}
+      {{ $named := index (findRESubmatch `(?i)lead-dbs\s+v?(\d+\.\d+(?:\.\d+)?)` $.Title 1) 0 }}
+      {{ $earlier := and $named (ne (index $named 1) $rel.version) }}
+      {{ if or $earlier (gt (now.Sub $.Date).Hours (mul 24 365 3)) }}
+      {{ $notes := partial "resolve-url.html" (dict "url" $rel.notes "page" $) }}
+      <p class="notice post-archive">{{ if $earlier }}This post is about an earlier release.{{ else }}This post is from {{ $.Date.Format "2006" }}.{{ end }} The current version is Lead-DBS&nbsp;{{ $rel.version }}: <a href="{{ with site.GetPage "/download" }}{{ .RelPermalink }}{{ end }}">download it</a>{{ if ne $notes $.RelPermalink }} and read <a href="{{ $notes }}">what changed</a>{{ end }}.</p>
       {{ end }}{{ end }}
       {{ partial "nobreak-html.html" .Content }}
       {{- /* onward, as on every page (partial next-steps.html): the next newer and older post (by date),
@@ -28,7 +34,7 @@
       {{ with .NextInSection }}{{ $items = $items | append (dict "href" .RelPermalink "name" .LinkTitle "text" (printf "Newer post, %s" (.Date.Format "2 January 2006")) "rel" "next") }}{{ end }}
       {{ with .PrevInSection }}{{ $items = $items | append (dict "href" .RelPermalink "name" .LinkTitle "text" (printf "Older post, %s" (.Date.Format "2 January 2006")) "rel" "prev") }}{{ end }}
       {{ with .Parent }}{{ $items = $items | append (dict "href" .RelPermalink "name" "All news" "text" "Releases, workshops and announcements") }}{{ end }}
-      {{ partial "next-steps.html" (dict "page" . "items" $items) }}
+      {{ partial "next-steps.html" (dict "page" . "items" $items "title" "More news") }}
     </article>
     {{ if $toc }}<aside class="sidebar" aria-label="Page contents">{{ partial "sidebar.html" (dict "page" . "toc" $toc) }}</aside>{{ end }}
   </div>

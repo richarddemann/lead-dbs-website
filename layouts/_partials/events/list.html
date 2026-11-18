@@ -36,6 +36,8 @@
   {{- $start := partial "events/local-time.html" (dict "s" $s "tz" $tz "what" "start" "name" $name) -}}
   {{- $day := partial "events/local-time.html" (dict "s" (substr $s 0 10) "tz" $tz "what" "start" "name" $name "quiet" $timed) -}}
   {{- $ends := $day.AddDate 0 0 1 -}}
+  {{- /* a timed event without an end lasts an hour, as in its calendar file (events/ics.html) */ -}}
+  {{- if and $timed (not .end) }}{{ $ends = $start.Add (time.ParseDuration "1h") }}{{ end -}}
   {{- $lastDay := $day -}}
   {{- with .end -}}
     {{- $e := string . -}}{{- if eq (len $e) 16 }}{{ $e = printf "%s:00" $e }}{{ end -}}

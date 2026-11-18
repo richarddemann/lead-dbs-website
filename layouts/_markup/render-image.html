@@ -37,7 +37,7 @@
   {{- $sizes = printf "(min-width: 1280px) min(900px, %dpx), (min-width: 1024px) min(66vw, %dpx), min(100vw, %dpx)" $w $w $w -}}
   {{- $img := printf `<img src="%s" alt="%s" width="%d" height="%d" sizes="%s" loading="lazy" decoding="async"%s>` $fb.RelPermalink ($alt | htmlEscape) $w $h $sizes $attrs -}}
   {{- $html = printf `<picture><source type="image/webp" srcset="%s" sizes="%s">%s</picture>` (delimit $set ", ") $sizes $img -}}
-  {{- if and (or (gt $W 900) (and (eq .Page.Section "manual") (or (gt $W 400) (gt $H 512)))) (not $setW) }}{{ $full = $res.RelPermalink }}{{ end -}}
+  {{- if and (or (gt $W 900) (and (in (slice "manual" "news") .Page.Section) (or (gt $W 400) (gt $H 512)))) (not $setW) }}{{ $full = $res.RelPermalink }}{{ end -}}
 {{- else -}}
   {{- $src := .Destination }}{{ $dims := "" -}}
   {{- with $res -}}

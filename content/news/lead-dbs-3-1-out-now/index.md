@@ -5,6 +5,8 @@ date: 2024-02-13
 slug: "lead-dbs-3-1-out-now"
 image: "oss-dbs-v2.png"
 image_alt: "OSS-DBS v2: the electric field around a DBS electrode (left), and fibre tracts in red and blue next to an electrode (right)"
+# long, with few words between its pictures: the contents under the title (layouts/_partials/has-toc.html)
+contents: true
 ---
 
 Lead-DBS 3.1, released by Ningfei Li, integrates OSS-DBS v2.0, updates WarpDrive and adds a built-in Python environment.
